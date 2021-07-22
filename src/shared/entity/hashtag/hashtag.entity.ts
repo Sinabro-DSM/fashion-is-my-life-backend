@@ -15,7 +15,6 @@ export class Hashtag {
   @Column({ length: 10 })
   name: string;
 
-  //post_id fk 설정하기
   @Column({ name: 'post_id' })
   post_id: number;
 
