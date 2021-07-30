@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Comment } from '../comment/comment.entity';
+import { Hanger } from '../hanger/hanger.entity';
 import { Hashtag } from '../hashtag/hashtag.entity';
 import { User } from '../user/user.entity';
 
@@ -39,6 +40,16 @@ export class Post {
 
   @Column({ name: 'user_id' })
   user_id: number;
+
+  @Column({ name: 'hanger_exis' })
+  hanger_exis: number;
+
+  @ManyToOne((type) => Hanger, (hanger) => hanger.user_id, {
+    onUpdate: 'CASCADE',
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({ name: 'hanger_exis' })
+  hanger: Hanger;
 
   @ManyToOne((type) => User, (user) => user.user_id, {
     onUpdate: 'CASCADE',
