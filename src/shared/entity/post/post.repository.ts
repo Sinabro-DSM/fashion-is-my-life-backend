@@ -18,4 +18,12 @@ export class PostRepository extends Repository<Post> {
       .where('hanger.user_id = user_id', { user_id })
       .getMany() as closetResponseData;
   }
+
+  async deletePost(post_id: number) {
+    return this.createQueryBuilder('post')
+      .delete()
+      .from(Post)
+      .where('post_id = post_id', { post_id })
+      .execute();
+  }
 }
