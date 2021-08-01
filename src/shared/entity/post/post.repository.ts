@@ -1,4 +1,5 @@
 import { closetResponseData } from 'src/closet/dto/closet.dto';
+import { postRequestData } from 'src/post/dto/post-req.dto';
 import { EntityRepository, Repository } from 'typeorm';
 import { Post } from './post.entity';
 
@@ -19,11 +20,26 @@ export class PostRepository extends Repository<Post> {
       .getMany() as closetResponseData;
   }
 
+  async createPost(post: postRequestData) {
+    return this.createQueryBuilder('post');
+  }
+
   async deletePost(post_id: number) {
     return this.createQueryBuilder('post')
       .delete()
       .from(Post)
       .where('post_id = post_id', { post_id })
       .execute();
+  }
+
+  async checkExistPost(post_id: number): Promise<boolean> {
+    const post = await this.createQueryBuilder('post')
+      .select('post.post_id')
+      .where('post.post_id = post_id', { post_id })
+      .getOne();
+    if (post) {
+      return true;
+    }
+    return false;
   }
 }
