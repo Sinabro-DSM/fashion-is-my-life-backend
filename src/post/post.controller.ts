@@ -1,4 +1,13 @@
-import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Param,
+  Post,
+  UploadedFiles,
+  UseInterceptors,
+} from '@nestjs/common';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import { postRequestData } from './dto/post-req.dto';
 import { PostService } from './post.service';
 
@@ -7,8 +16,12 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
-  public async createPost(@Body() post: postRequestData) {
-    await this.postService.createPost(post);
+  @UseInterceptors(FilesInterceptor('files'))
+  public async createPost(
+    @UploadedFiles() files: Array<Express.Multer.File>,
+    @Body() postRequestData: postRequestData,
+  ) {
+    await this.postService.createPost(postRequestData, files);
     return { status: 200, message: 'success' };
   }
 
