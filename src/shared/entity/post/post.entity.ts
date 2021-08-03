@@ -41,14 +41,14 @@ export class Post {
   @Column({ name: 'user_id' })
   user_id: number;
 
-  @Column({ name: 'hanger_exis' })
-  hanger_exis: number;
+  @Column({ name: 'hangerExis' })
+  hangerExis: number;
 
   @ManyToOne((type) => Hanger, (hanger) => hanger.user_id, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'hanger_exis' })
+  @JoinColumn({ name: 'hangerExis' })
   hanger: Hanger;
 
   @ManyToOne((type) => User, (user) => user.user_id, {

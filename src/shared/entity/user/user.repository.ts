@@ -1,4 +1,4 @@
-import { SignUpDto } from 'src/auth/dto/signup.dto';
+import { SignUpDto } from 'src/auth/dto/sign-up.dto';
 import { EntityRepository, Repository } from 'typeorm';
 import { User } from './user.entity';
 
