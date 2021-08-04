@@ -9,7 +9,7 @@ export class PostRepository extends Repository<Post> {
     return this.createQueryBuilder('post')
       .innerJoin('post.user_id', 'user')
       .innerJoin('post.hashtag', 'hashtag')
-      .innerJoin('post.hanger_exis', 'hanger')
+      .innerJoin('post.hanger', 'hanger')
       .select('user.nickname', 'nickname')
       .addSelect('post.title', 'title')
       .addSelect('post.picture', 'picture')
