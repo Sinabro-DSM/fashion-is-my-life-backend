@@ -41,15 +41,8 @@ export class Post {
   @Column({ name: 'user_id' })
   user_id: number;
 
-  @Column({ name: 'hangerExis' })
-  hangerExis: number;
-
-  @ManyToOne((type) => Hanger, (hanger) => hanger.user_id, {
-    onUpdate: 'CASCADE',
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({ name: 'hangerExis' })
-  hanger: Hanger;
+  @OneToMany((type) => Hanger, (hanger) => hanger.user_id)
+  hanger!: Hanger;
 
   @ManyToOne((type) => User, (user) => user.user_id, {
     onUpdate: 'CASCADE',
