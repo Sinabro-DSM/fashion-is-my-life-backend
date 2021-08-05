@@ -13,7 +13,7 @@ export class PostService {
 
   public async createPost(
     @Body() post: postRequestData,
-    @UploadedFiles() files: Array<Express.Multer.File>,
+    @UploadedFiles() files: Express.Multer.File[],
   ) {
     return await this.postRepository.createPost(post);
   }
