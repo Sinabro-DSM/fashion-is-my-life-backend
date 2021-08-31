@@ -9,6 +9,6 @@ export class AuthController {
   @Post('/signup')
   public async signUp(@Body() user: SignUpDto) {
     await this.authService.signUp(user);
-    return { status: 200, message: 'success' };
+    return { status: 201, message: 'success' };
   }
 }
