@@ -1,3 +1,4 @@
+import { hash } from 'bcrypt';
 import {
   Column,
   CreateDateColumn,
@@ -40,6 +41,9 @@ export class Post {
 
   @Column({ name: 'user_id' })
   user_id: number;
+
+  @Column({ name: 'hashtag' })
+  tags: string;
 
   @OneToMany((type) => Hanger, (hanger) => hanger.user_id)
   hanger!: Hanger;
