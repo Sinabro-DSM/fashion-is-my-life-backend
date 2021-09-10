@@ -24,9 +24,6 @@ export class Post {
   @Column({ length: 256, nullable: true })
   content: string;
 
-  @Column({ length: 100 })
-  picture_url: string;
-
   @Column({ length: 30, nullable: true })
   top_info: string;
 
@@ -62,5 +59,5 @@ export class Post {
   commnet: Comment[];
 
   @OneToMany((type) => Picture, (picture) => picture.picture_id)
-  picture: Picture[];
+  pictures: Picture[];
 }
