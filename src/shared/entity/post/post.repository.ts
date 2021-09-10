@@ -20,8 +20,24 @@ export class PostRepository extends Repository<Post> {
       .getMany() as closetResponseData;
   }
 
-  async createPost(post: postRequestData) {
-    return this.createQueryBuilder('post');
+  async createPost(
+    dto: postRequestData,
+    files_url: string[],
+  ): Promise<postRequestData> {
+    let newPost: Post;
+    //  dto.picture = files_url;
+
+    newPost = this.create({
+      title: dto.title,
+      picture: dto.picture,
+      top_info: dto.topInfo,
+      bottoms_info: dto.bottomInfo,
+      shoes_info: dto.shoesInfo,
+      content: dto.content,
+      tags: dto.tags,
+    });
+
+    return await this.save(newPost);
   }
 
   async deletePost(post_id: number) {
