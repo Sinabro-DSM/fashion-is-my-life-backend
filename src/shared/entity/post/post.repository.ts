@@ -1,6 +1,7 @@
 import { closetResponseData } from 'src/closet/dto/closet.dto';
 import { postRequestData } from 'src/post/dto/post-req.dto';
 import { EntityRepository, Repository } from 'typeorm';
+import { Picture } from '../picture/picture.entity';
 import { Post } from './post.entity';
 
 @EntityRepository(Post)
@@ -22,14 +23,13 @@ export class PostRepository extends Repository<Post> {
 
   async createPost(
     dto: postRequestData,
-    files_url: string[],
+    files_url: Picture[],
   ): Promise<postRequestData> {
     let newPost: Post;
-    //  dto.picture = files_url;
 
     newPost = this.create({
       title: dto.title,
-      picture: dto.picture,
+      pictures: files_url,
       top_info: dto.topInfo,
       bottoms_info: dto.bottomInfo,
       shoes_info: dto.shoesInfo,
