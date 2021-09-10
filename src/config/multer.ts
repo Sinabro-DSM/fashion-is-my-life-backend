@@ -1,46 +1,24 @@
-import * as multer from 'multer';
-import * as path from 'path';
-import * as fs from 'fs';
 import { MulterOptions } from '@nestjs/platform-express/multer/interfaces/multer-options.interface';
+import * as multerS3 from 'multer-s3';
+import * as AWS from 'aws-sdk';
+import { v4 } from 'uuid';
 
-const createFolder = (folder: string) => {
-  try {
-    console.log(' Create a root uploads folder...');
-    fs.mkdirSync(path.join(__dirname, '..', `uploads`));
-  } catch (error) {
-    console.log('The folder already exists...');
-  }
+AWS.config.update({
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+  region: process.env.AWS_REGION,
+});
 
-  try {
-    console.log(` Create a ${folder} uploads folder...`);
-    fs.mkdirSync(path.join(__dirname, '..', `uploads/${folder}`));
-  } catch (error) {
-    console.log(`The ${folder} folder already exists...`);
-  }
-};
+export const s3 = new AWS.S3();
 
-const storage = (folder: string): multer.StorageEngine => {
-  createFolder(folder);
-
-  return multer.diskStorage({
-    destination(req, file, cb) {
-      const folderName = path.join(__dirname, '..', `uploads/${folder}`);
-      cb(null, folderName);
+export const multerOptions: MulterOptions = {
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.AWS_S3_BUCKET_NAME,
+    acl: 'public-read',
+    key: (req, file: Express.Multer.File, cb) => {
+      cb(null, `post/${v4()} ${file.originalname}`);
     },
-    filename(req, file, cb) {
-      const ext = path.extname(file.originalname);
-      const fileName = `${path.basename(
-        file.originalname,
-        ext,
-      )}${Date.now()}${ext}`;
-      cb(null, fileName);
-    },
-  });
-};
-
-export const multerOptions = (folder: string) => {
-  const result: MulterOptions = {
-    storage: storage(folder),
-  };
-  return result;
+  }),
+  limits: { fieldSize: 50 * 1024 * 1024 },
 };
