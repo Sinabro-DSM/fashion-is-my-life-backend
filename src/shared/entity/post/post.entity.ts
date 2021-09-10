@@ -10,6 +10,7 @@ import {
 import { Comment } from '../comment/comment.entity';
 import { Hanger } from '../hanger/hanger.entity';
 import { Hashtag } from '../hashtag/hashtag.entity';
+import { Picture } from '../picture/picture.entity';
 import { User } from '../user/user.entity';
 
 @Entity('post')
@@ -24,7 +25,7 @@ export class Post {
   content: string;
 
   @Column({ length: 100 })
-  picture: string;
+  picture_url: string;
 
   @Column({ length: 30, nullable: true })
   top_info: string;
@@ -59,4 +60,7 @@ export class Post {
 
   @OneToMany((type) => Comment, (comment) => comment.post)
   commnet: Comment[];
+
+  @OneToMany((type) => Picture, (picture) => picture.picture_id)
+  picture: Picture[];
 }
