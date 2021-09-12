@@ -2,7 +2,7 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from '../user/user.entity';
@@ -15,7 +15,7 @@ export class Profile {
   @Column({ length: 256 })
   profile_path: string;
 
-  @ManyToOne((type) => User, (user) => user.user_id, {
+  @OneToOne((type) => User, (user) => user.user_id, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
