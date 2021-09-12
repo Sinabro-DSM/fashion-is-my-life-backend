@@ -1,4 +1,10 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Comment } from '../comment/comment.entity';
 import { Post } from '../post/post.entity';
 import { Profile } from '../Profile/profile.entity';
@@ -26,6 +32,6 @@ export class User {
   @OneToMany((type) => Comment, (comment) => comment.user)
   commnet: Comment[];
 
-  @OneToMany((type) => Profile, (profile) => profile.profile_id)
+  @OneToOne((type) => Profile, (profile) => profile.profile_id)
   Profile: Profile[];
 }
