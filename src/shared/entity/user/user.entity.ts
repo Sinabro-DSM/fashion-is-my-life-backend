@@ -1,6 +1,7 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Comment } from '../comment/comment.entity';
 import { Post } from '../post/post.entity';
+import { Profile } from '../Profile/profile.entity';
 
 @Entity('user')
 export class User {
@@ -24,4 +25,7 @@ export class User {
 
   @OneToMany((type) => Comment, (comment) => comment.user)
   commnet: Comment[];
+
+  @OneToMany((type) => Profile, (profile) => profile.profile_id)
+  Profile: Profile[];
 }
