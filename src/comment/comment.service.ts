@@ -1,9 +1,4 @@
 import { Injectable } from '@nestjs/common';
-<<<<<<< Updated upstream
-
-@Injectable()
-export class CommentService {}
-=======
 import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from 'src/shared/entity/comment/comment.entity';
 import { CommentRepository } from 'src/shared/entity/comment/comment.repository';
@@ -19,4 +14,3 @@ export class CommentService {
     return await this.commentRepository.deleteComment(comment_id);
   }
 }
->>>>>>> Stashed changes
