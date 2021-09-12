@@ -19,7 +19,7 @@ export class PostController {
   @Post()
   @UseInterceptors(FilesInterceptor('files', 10, multerOptions))
   public async createPost(
-    @UploadedFiles() files: Express.Multer.File[], // 만약 안된다면 @UploadedFiles() files: Array<IMulterFile> 이렇게 인터페이스로 바꿔보기
+    @UploadedFiles() files: Express.Multer.File[],
     @Body() postRequestData: postRequestData,
   ) {
     await this.postService.createPost(postRequestData, files);
@@ -32,18 +32,3 @@ export class PostController {
     return { status: 200, message: 'success' };
   }
 }
-
-// @UseGuards(AuthGuard('jwt'))
-// @UseInterceptors(FilesInterceptor('song', 2, SongMulterConfigs))
-// @Post()
-// public async uploadSong(
-//   @UploadedFiles() files: Array<IMulterFile>,
-//   @Body() dto: UploadSongDto,
-// ): Promise<UploadSongResponseData> {
-//   await this.songService.uploadSong(
-//     files[0].filename,
-//     files[1].filename,
-//     dto,
-//   );
-//   return { message: 'success' };
-// }
