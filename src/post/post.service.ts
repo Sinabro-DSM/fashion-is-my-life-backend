@@ -44,4 +44,8 @@ export class PostService {
     }
     return await this.postRepository.deletePost(post_id);
   }
+
+  public async postRecommendation() {
+    return await this.postRepository.postRecommendation();
+  }
 }
