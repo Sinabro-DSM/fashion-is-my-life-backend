@@ -11,13 +11,25 @@ AWS.config.update({
 
 export const s3 = new AWS.S3();
 
-export const multerOptions: MulterOptions = {
+export const PostMulterOptions: MulterOptions = {
   storage: multerS3({
     s3: s3,
     bucket: process.env.AWS_S3_BUCKET_NAME,
     acl: 'public-read',
     key: (req, file: Express.Multer.File, cb) => {
       cb(null, `post/${v4()} ${file.originalname}`);
+    },
+  }),
+  limits: { fieldSize: 50 * 1024 * 1024 },
+};
+
+export const ProfileMulterOptions: MulterOptions = {
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.AWS_S3_BUCKET_NAME,
+    acl: 'public-read',
+    key: (req, file: Express.Multer.File, cb) => {
+      cb(null, `profile/${v4()} ${file.originalname}`);
     },
   }),
   limits: { fieldSize: 50 * 1024 * 1024 },
