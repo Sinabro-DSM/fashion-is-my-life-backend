@@ -1,13 +1,6 @@
-import {
-  Column,
-  Entity,
-  OneToMany,
-  OneToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Comment } from '../comment/comment.entity';
 import { Post } from '../post/post.entity';
-import { Profile } from '../Profile/profile.entity';
 
 @Entity('user')
 export class User {
@@ -23,15 +16,12 @@ export class User {
   @Column({ length: 100 })
   password: string;
 
-  @Column({ length: 100, nullable: true })
-  profile: string;
+  @Column({ length: 200, nullable: true })
+  profile_path: string;
 
-  @OneToMany((type) => Post, (post) => post.user)
+  @OneToMany((type) => Post, (post) => post.user_id)
   post: Post[];
 
-  @OneToMany((type) => Comment, (comment) => comment.user)
+  @OneToMany((type) => Comment, (comment) => comment.user_id)
   commnet: Comment[];
-
-  @OneToOne((type) => Profile, (profile) => profile.profile_id)
-  Profile: Profile[];
 }
