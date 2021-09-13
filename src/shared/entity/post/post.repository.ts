@@ -1,7 +1,5 @@
 import { closetResponseData } from 'src/closet/dto/closet.dto';
-import { postRequestDto } from 'src/post/dto/post-req.dto';
 import { EntityRepository, Repository } from 'typeorm';
-import { Picture } from '../picture/picture.entity';
 import { Post } from './post.entity';
 
 @EntityRepository(Post)
@@ -38,5 +36,22 @@ export class PostRepository extends Repository<Post> {
       return true;
     }
     return false;
+  }
+
+  async postRecommendation() {
+    this.createQueryBuilder('post')
+      .innerJoin('post.picture', 'picture')
+      .innerJoin('post.hanger', 'hanger')
+      .innerJoin('post.hashtag', 'hashtag')
+      .select('title')
+      .addSelect('picture.picture_path')
+      .addSelect('hanger.post_id', 'hanger')
+      .addSelect('content')
+      .addSelect('hashtag.name', 'hashtag')
+      .addSelect('createdAt')
+      .from(Post, 'post')
+      .orderBy('RANDOM()')
+      .limit(1)
+      .execute();
   }
 }
