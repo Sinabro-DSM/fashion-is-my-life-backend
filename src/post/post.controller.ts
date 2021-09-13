@@ -8,7 +8,7 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import { multerOptions } from 'src/config/multer';
+import { PostMulterOptions } from 'src/config/multer';
 import { postRequestData } from './dto/post-req.dto';
 import { PostService } from './post.service';
 
@@ -17,7 +17,7 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @Post()
-  @UseInterceptors(FilesInterceptor('files', 10, multerOptions))
+  @UseInterceptors(FilesInterceptor('files', 10, PostMulterOptions))
   public async createPost(
     @UploadedFiles() files: Express.Multer.File[],
     @Body() postRequestData: postRequestData,
