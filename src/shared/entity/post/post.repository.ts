@@ -1,5 +1,5 @@
 import { closetResponseData } from 'src/closet/dto/closet.dto';
-import { postRequestData } from 'src/post/dto/post-req.dto';
+import { postRequestDto } from 'src/post/dto/post-req.dto';
 import { EntityRepository, Repository } from 'typeorm';
 import { Picture } from '../picture/picture.entity';
 import { Post } from './post.entity';
@@ -19,25 +19,6 @@ export class PostRepository extends Repository<Post> {
       .addSelect('post.createAt', 'createAt')
       .where('hanger.user_id = user_id', { user_id })
       .getMany() as closetResponseData;
-  }
-
-  async createPost(
-    dto: postRequestData,
-    files_url: Picture[],
-  ): Promise<postRequestData> {
-    let newPost: Post;
-
-    newPost = this.create({
-      title: dto.title,
-      pictures: files_url,
-      top_info: dto.topInfo,
-      bottoms_info: dto.bottomInfo,
-      shoes_info: dto.shoesInfo,
-      content: dto.content,
-      tags: dto.tags,
-    });
-
-    return await this.save(newPost);
   }
 
   async deletePost(post_id: number) {
