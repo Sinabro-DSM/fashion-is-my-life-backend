@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Delete,
+  Get,
   Param,
   Post,
   UploadedFiles,
@@ -29,6 +30,12 @@ export class PostController {
   @Delete(':postId')
   public async deletePost(@Param('post_id') post_id: number) {
     await this.postService.deletePost(post_id);
+    return { status: 200, message: 'success' };
+  }
+
+  @Get('recommendation')
+  public async postRecommendation() {
+    await this.postService.postRecommendation();
     return { status: 200, message: 'success' };
   }
 }
