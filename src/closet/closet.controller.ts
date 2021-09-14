@@ -6,7 +6,7 @@ import { closetResponseData } from './dto/closet.dto';
 export class ClosetController {
   constructor(private readonly closetService: ClosetService) {}
 
-  @Get(':userId')
+  @Get('/:userId')
   public async closet(
     @Param('user_id') user_id: number,
   ): Promise<closetResponseData> {
