@@ -15,7 +15,7 @@ export class PostRepository extends Repository<Post> {
       .addSelect('hashtag.name', 'hashtag')
       .addSelect('hanger.user_id', 'hanger')
       .addSelect('post.createAt', 'createAt')
-      .where('hanger.user_id = user_id', { user_id })
+      .where('hanger.user_id = :user_id', { user_id })
       .getMany() as closetResponseData;
   }
 
@@ -23,14 +23,14 @@ export class PostRepository extends Repository<Post> {
     return this.createQueryBuilder('post')
       .delete()
       .from(Post)
-      .where('post_id = post_id', { post_id })
+      .where('post_id = :post_id', { post_id })
       .execute();
   }
 
   async checkExistPost(post_id: number): Promise<boolean> {
     const post = await this.createQueryBuilder('post')
       .select('post.post_id')
-      .where('post.post_id = post_id', { post_id })
+      .where('post.post_id = :post_id', { post_id })
       .getOne();
     if (post) {
       return true;
@@ -51,7 +51,18 @@ export class PostRepository extends Repository<Post> {
       .addSelect('createdAt')
       .from(Post, 'post')
       .orderBy('RANDOM()')
-      .limit(1)
+      .limit(15)
       .execute();
+  }
+
+  async search(searchWord: string) {
+    this.createQueryBuilder('post')
+      .innerJoin('post.hashtag', 'hashtag')
+      .select('post.title', 'post')
+      .where('post.title like %:title% OR post.hashtag like %:name%', {
+        title: searchWord,
+        name: searchWord,
+      })
+      .getMany();
   }
 }
