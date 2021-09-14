@@ -62,4 +62,10 @@ export class PostService {
   public async searchHashtag(searchWord: string) {
     return await this.postRepository.search(searchWord);
   }
+
+  public async getHanger(post_id: number) {
+    const hangerCnt = await this.hangerRepository.getHanger(post_id);
+
+    return hangerCnt.length;
+  }
 }
