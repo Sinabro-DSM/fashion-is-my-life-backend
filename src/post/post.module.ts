@@ -6,6 +6,7 @@ import { PostController } from './post.controller';
 import { PostService } from './post.service';
 import { PictureRepository } from 'src/shared/entity/picture/picture.repository';
 import { HashtagRepository } from 'src/shared/entity/hashtag/hashtag.repository';
+import { HangerRepository } from 'src/shared/entity/hanger/hanger.repository';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { HashtagRepository } from 'src/shared/entity/hashtag/hashtag.repository'
       PostRepository,
       PictureRepository,
       HashtagRepository,
+      HangerRepository,
     ]),
   ],
   controllers: [PostController],
