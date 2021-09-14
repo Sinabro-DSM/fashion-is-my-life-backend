@@ -5,7 +5,7 @@ export class SignUpDto {
   readonly email: string;
 
   @IsString()
-  @Length(2, 8)
+  @Length(2, 20)
   readonly nickname: string;
 
   @IsString()
