@@ -16,7 +16,6 @@ export class Comment {
   @Column({ length: 200, nullable: true })
   comment: string;
 
-  //userId fk
   @Column({ name: 'user_id' })
   user_id: number;
 
@@ -27,7 +26,6 @@ export class Comment {
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  //postId fk
   @Column({ name: 'post_id' })
   post_id: number;
 
