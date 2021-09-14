@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Hanger } from 'src/shared/entity/hanger/hanger.entity';
+import { HangerRepository } from 'src/shared/entity/hanger/hanger.repository';
 import { Hashtag } from 'src/shared/entity/hashtag/hashtag.entity';
 import { HashtagRepository } from 'src/shared/entity/hashtag/hashtag.repository';
 import { Picture } from 'src/shared/entity/picture/picture.entity';
@@ -17,17 +19,18 @@ export class PostService {
     private readonly pictureRepository: PictureRepository,
     @InjectRepository(Hashtag)
     private readonly hashtagRepository: HashtagRepository,
+    @InjectRepository(Hanger)
+    private readonly hangerRepository: HangerRepository,
   ) {}
 
   public async createPost(dto: postRequestDto, files: Express.Multer.File[]) {
-    let post = new Post();
-    let files_url: Picture[] = await Promise.all(
+    const post = new Post();
+    const files_url: Picture[] = await Promise.all(
       files.map(async (file) => {
         let picture = await this.pictureRepository.savePicture(file.filename);
         return picture;
       }),
     );
-    await this.hashtagRepository.saveHashtag(dto);
 
     post.title = dto.title;
     post.picture = files_url;
@@ -35,7 +38,14 @@ export class PostService {
     post.bottoms_info = dto.bottomInfo;
     post.shoes_info = dto.shoesInfo;
     post.content = dto.content;
-    return await this.postRepository.save(post);
+    const createdPost = await this.postRepository.save(post);
+
+    dto.tags.map(async (tag) => {
+      await this.hashtagRepository.saveHashtag({
+        name: tag,
+        post_id: createdPost.post_id,
+      });
+    });
   }
 
   public async deletePost(post_id: number) {
@@ -47,5 +57,9 @@ export class PostService {
 
   public async postRecommendation() {
     return await this.postRepository.postRecommendation();
+  }
+
+  public async searchHashtag(searchWord: string) {
+    return await this.postRepository.search(searchWord);
   }
 }
