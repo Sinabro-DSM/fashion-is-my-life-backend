@@ -39,9 +39,6 @@ export class Post {
   @Column({ name: 'user_id' })
   user_id: number;
 
-  @Column({ name: 'hashtag' })
-  tags: string;
-
   @OneToMany((type) => Hanger, (hanger) => hanger.user_id)
   hanger!: Hanger;
 
@@ -59,5 +56,5 @@ export class Post {
   commnet: Comment[];
 
   @OneToMany((type) => Picture, (picture) => picture.picture_id)
-  pictures: Picture[];
+  picture: Picture[];
 }

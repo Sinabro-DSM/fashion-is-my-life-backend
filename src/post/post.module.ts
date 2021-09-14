@@ -5,13 +5,20 @@ import { PostRepository } from 'src/shared/entity/post/post.repository';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
 import { PictureRepository } from 'src/shared/entity/picture/picture.repository';
+import { HashtagRepository } from 'src/shared/entity/hashtag/hashtag.repository';
+import { HangerRepository } from 'src/shared/entity/hanger/hanger.repository';
 
 @Module({
   imports: [
     MulterModule.register({
       dest: './upload',
     }),
-    TypeOrmModule.forFeature([PostRepository, PictureRepository]),
+    TypeOrmModule.forFeature([
+      PostRepository,
+      PictureRepository,
+      HashtagRepository,
+      HangerRepository,
+    ]),
   ],
   controllers: [PostController],
   providers: [PostService],
