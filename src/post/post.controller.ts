@@ -45,4 +45,10 @@ export class PostController {
     await this.postService.searchHashtag(searchWord);
     return { status: 200, message: 'success' };
   }
+
+  @Get('/hanger/:postId')
+  public async getHanger(@Body() post_id: number) {
+    await this.postService.getHanger(post_id);
+    return { status: 200, message: 'success' };
+  }
 }
