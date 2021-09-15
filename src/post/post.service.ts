@@ -68,4 +68,8 @@ export class PostService {
 
     return hangerCnt.length;
   }
+
+  public async getPost(post_id: number) {
+    return await this.postRepository.getPost(post_id);
+  }
 }
