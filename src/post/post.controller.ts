@@ -51,4 +51,10 @@ export class PostController {
     await this.postService.getHanger(post_id);
     return { status: 200, message: 'success' };
   }
+
+  @Get('/:postId')
+  public async getPost(@Param('post_id') post_id: number) {
+    await this.postService.getPost(post_id);
+    return { status: 200, message: 'success' };
+  }
 }
