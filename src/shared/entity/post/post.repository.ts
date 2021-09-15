@@ -83,6 +83,7 @@ export class PostRepository extends Repository<Post> {
       .addSelect('post.content', 'content')
       .addSelect('hashtag.name', 'name')
       .addSelect('post.createAt', 'createAt')
+      .where('post.post_id = :post_id', { post_id })
       .getOne();
   }
 }
