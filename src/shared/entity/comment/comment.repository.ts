@@ -13,6 +13,18 @@ export class CommentRepository extends Repository<Comment> {
       .getMany();
   }
 
+  async createComment(post_id: number, comment: string) {
+    let newComment: Comment;
+
+    //토큰나오면 user_id 뽑아와서 넣어주기
+    newComment = this.create({
+      post_id: post_id,
+      comment: comment,
+    });
+
+    return await this.save(newComment);
+  }
+
   async deleteComment(comment_id: number) {
     return this.createQueryBuilder('comment')
       .delete()
