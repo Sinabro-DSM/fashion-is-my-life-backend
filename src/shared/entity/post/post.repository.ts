@@ -9,11 +9,12 @@ export class PostRepository extends Repository<Post> {
       .innerJoin('post.user_id', 'user')
       .innerJoin('post.hashtag', 'hashtag')
       .innerJoin('post.hanger', 'hanger')
+      .innerJoin('post.picture', 'picture')
       .select('user.nickname', 'nickname')
       .addSelect('post.title', 'title')
-      .addSelect('post.picture', 'picture')
-      .addSelect('hashtag.name', 'hashtag')
-      .addSelect('hanger.user_id', 'hanger')
+      .addSelect('picture.picture_path', 'picture_path')
+      .addSelect('hashtag.name', 'name')
+      .addSelect('hanger.user_id', 'user_id')
       .addSelect('post.createAt', 'createAt')
       .where('hanger.user_id = :user_id', { user_id })
       .getMany() as closetResponseData;
@@ -29,7 +30,7 @@ export class PostRepository extends Repository<Post> {
 
   async checkExistPost(post_id: number): Promise<boolean> {
     const post = await this.createQueryBuilder('post')
-      .select('post.post_id')
+      .select('post.post_id', 'post_id')
       .where('post.post_id = :post_id', { post_id })
       .getOne();
     if (post) {
@@ -43,12 +44,12 @@ export class PostRepository extends Repository<Post> {
       .innerJoin('post.picture', 'picture')
       .innerJoin('post.hanger', 'hanger')
       .innerJoin('post.hashtag', 'hashtag')
-      .select('title')
-      .addSelect('picture.picture_path')
-      .addSelect('hanger.post_id', 'hanger')
-      .addSelect('content')
-      .addSelect('hashtag.name', 'hashtag')
-      .addSelect('createdAt')
+      .select('post.title', 'title')
+      .addSelect('picture.picture_path', 'picture_path')
+      .addSelect('hanger.post_id', 'post_id')
+      .addSelect('post.content', 'content')
+      .addSelect('hashtag.name', 'name')
+      .addSelect('post.createdAt', 'createAt')
       .from(Post, 'post')
       .orderBy('RANDOM()')
       .limit(15)
@@ -58,11 +59,16 @@ export class PostRepository extends Repository<Post> {
   async search(searchWord: string) {
     this.createQueryBuilder('post')
       .innerJoin('post.hashtag', 'hashtag')
-      .select('post.title', 'post')
-      .where('post.title like %:title% OR post.hashtag like %:name%', {
-        title: searchWord,
-        name: searchWord,
-      })
+      .innerJoin('post.picture', 'picture')
+      .innerJoin('post.hanger', 'hanger')
+      .innerJoin('post.hashtag', 'hashtag')
+      .select('post.title', 'title')
+      .addSelect('picture.picture_path', 'picture')
+      .addSelect('hanger.post_id', 'post_id')
+      .addSelect('post.content', 'content')
+      .addSelect('hashtag.name', 'name')
+      .addSelect('post.createAt', 'createAt')
+      .where('hashtag.name like %:name%', { name: searchWord })
       .getMany();
   }
 }
