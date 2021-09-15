@@ -40,7 +40,7 @@ export class PostRepository extends Repository<Post> {
   }
 
   async postRecommendation() {
-    this.createQueryBuilder('post')
+    return this.createQueryBuilder('post')
       .innerJoin('post.picture', 'picture')
       .innerJoin('post.hanger', 'hanger')
       .innerJoin('post.hashtag', 'hashtag')
@@ -57,7 +57,7 @@ export class PostRepository extends Repository<Post> {
   }
 
   async search(searchWord: string) {
-    this.createQueryBuilder('post')
+    return this.createQueryBuilder('post')
       .innerJoin('post.hashtag', 'hashtag')
       .innerJoin('post.picture', 'picture')
       .innerJoin('post.hanger', 'hanger')
@@ -70,5 +70,19 @@ export class PostRepository extends Repository<Post> {
       .addSelect('post.createAt', 'createAt')
       .where('hashtag.name like %:name%', { name: searchWord })
       .getMany();
+  }
+
+  async getPost(post_id: number) {
+    return this.createQueryBuilder('post')
+      .innerJoin('post.picture', 'picture')
+      .innerJoin('post.hanger', 'hanger')
+      .innerJoin('post.hashtag', 'hashtag')
+      .select('post.title', 'title')
+      .addSelect('picture.picture_path', 'picture_path')
+      .addSelect('hanger.post_id', 'post_id')
+      .addSelect('post.content', 'content')
+      .addSelect('hashtag.name', 'name')
+      .addSelect('post.createAt', 'createAt')
+      .getOne();
   }
 }
