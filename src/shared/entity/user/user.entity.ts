@@ -16,8 +16,8 @@ export class User {
   @Column({ length: 100 })
   password: string;
 
-  @Column({ length: 100, nullable: true })
-  profile: string;
+  @Column({ length: 200, nullable: true })
+  profile_path: string;
 
   @OneToMany((type) => Post, (post) => post.user)
   post: Post[];
