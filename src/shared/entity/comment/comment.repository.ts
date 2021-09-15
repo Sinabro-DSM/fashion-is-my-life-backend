@@ -9,7 +9,7 @@ export class CommentRepository extends Repository<Comment> {
       .select('user.user_id', 'user_id')
       .addSelect('user.profile_path', 'profile_path')
       .addSelect('comment.comment', 'comment')
-      .where('post_id = :post_id', { post_id })
+      .where('post_id = :post_id', { post_id: post_id })
       .getMany();
   }
 
@@ -29,7 +29,7 @@ export class CommentRepository extends Repository<Comment> {
     return this.createQueryBuilder('comment')
       .delete()
       .from(Comment)
-      .where('comment_id = :comment_id', { comment_id })
+      .where('comment_id = :comment_id', { comment_id: comment_id })
       .execute();
   }
 }
