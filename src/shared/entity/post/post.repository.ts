@@ -16,7 +16,7 @@ export class PostRepository extends Repository<Post> {
       .addSelect('hashtag.name', 'name')
       .addSelect('hanger.user_id', 'user_id')
       .addSelect('post.createAt', 'createAt')
-      .where('hanger.user_id = :user_id', { user_id })
+      .where('hanger.user_id = :user_id', { user_id: user_id })
       .getMany() as closetResponseData;
   }
 
@@ -24,14 +24,14 @@ export class PostRepository extends Repository<Post> {
     return this.createQueryBuilder('post')
       .delete()
       .from(Post)
-      .where('post_id = :post_id', { post_id })
+      .where('post_id = :post_id', { post_id: post_id })
       .execute();
   }
 
   async checkExistPost(post_id: number): Promise<boolean> {
     const post = await this.createQueryBuilder('post')
       .select('post.post_id', 'post_id')
-      .where('post.post_id = :post_id', { post_id })
+      .where('post.post_id = :post_id', { post_id: post_id })
       .getOne();
     if (post) {
       return true;
@@ -63,12 +63,15 @@ export class PostRepository extends Repository<Post> {
       .innerJoin('post.hanger', 'hanger')
       .innerJoin('post.hashtag', 'hashtag')
       .select('post.title', 'title')
-      .addSelect('picture.picture_path', 'picture')
+      .addSelect('picture.picture_path', 'picture_path')
       .addSelect('hanger.post_id', 'post_id')
       .addSelect('post.content', 'content')
       .addSelect('hashtag.name', 'name')
       .addSelect('post.createAt', 'createAt')
-      .where('hashtag.name like %:name%', { name: searchWord })
+      .where('hashtag.name like %:name% OR user.nickname like %:nickname%', {
+        name: searchWord,
+        nickname: searchWord,
+      })
       .getMany();
   }
 
@@ -83,7 +86,7 @@ export class PostRepository extends Repository<Post> {
       .addSelect('post.content', 'content')
       .addSelect('hashtag.name', 'name')
       .addSelect('post.createAt', 'createAt')
-      .where('post.post_id = :post_id', { post_id })
+      .where('post.post_id = :post_id', { post_id: post_id })
       .getOne();
   }
 }
