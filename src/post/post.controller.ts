@@ -58,7 +58,7 @@ export class PostController {
     return { status: 200, message: 'success' };
   }
 
-  @Get('/:postId')
+  @Get('/closet/:postId')
   public async getClosetInfo(@Param('post_id') post_id: number) {
     return await this.postService.getClosetInfo(post_id);
   }
