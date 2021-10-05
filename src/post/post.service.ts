@@ -59,7 +59,7 @@ export class PostService {
     return await this.postRepository.postRecommendation();
   }
 
-  public async searchHashtag(searchWord: string) {
+  public async search(searchWord: string) {
     return await this.postRepository.search(searchWord);
   }
 
@@ -71,5 +71,9 @@ export class PostService {
 
   public async getPost(post_id: number) {
     return await this.postRepository.getPost(post_id);
+  }
+
+  public async getClosetInfo(post_id: number) {
+    return await this.postRepository.getClosetInfo(post_id);
   }
 }
