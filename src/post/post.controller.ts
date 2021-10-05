@@ -53,8 +53,7 @@ export class PostController {
 
   @Get('/:postId')
   public async getPost(@Param('post_id') post_id: number) {
-    await this.postService.getPost(post_id);
-    return { status: 200, message: 'success' };
+    return await this.postService.getPost(post_id);
   }
 
   @Get('/closet/:postId')
