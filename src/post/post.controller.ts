@@ -36,8 +36,7 @@ export class PostController {
 
   @Get('/recommendation')
   public async postRecommendation() {
-    await this.postService.postRecommendation();
-    return { status: 200, message: 'success' };
+    return await this.postService.postRecommendation();
   }
 
   @Get()
