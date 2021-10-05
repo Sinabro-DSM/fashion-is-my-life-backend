@@ -42,8 +42,7 @@ export class PostController {
 
   @Get()
   public async search(@Query() searchWord: string) {
-    await this.postService.search(searchWord);
-    return { status: 200, message: 'success' };
+    return await this.postService.search(searchWord);
   }
 
   @Get('/hanger/:postId')
