@@ -5,10 +5,12 @@ import { HandlebarsAdapter } from '@nestjs-modules/mailer/dist/adapters/handleba
 import { UserRepository } from 'src/shared/entity/user/user.repository';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
+import { UserModule } from 'src/user/user.module';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([UserRepository]),
+    UserModule,
     MailerModule.forRoot({
       transport: {
         service: 'gmail',
