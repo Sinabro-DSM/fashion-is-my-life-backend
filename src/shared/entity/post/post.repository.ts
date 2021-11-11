@@ -56,6 +56,40 @@ export class PostRepository extends Repository<Post> {
       .execute();
   }
 
+  //좋아요순 게시물 
+  async postLike(){
+    return this.createQueryBuilder('post')
+      .innerJoin('post.picture', 'picture')
+      .innerJoin('post.hanger', 'hanger')
+      .innerJoin('post.hashtag', 'hashtag')
+      .select('post.title', 'title')
+      .addSelect('picture.picture_path', 'picture_path')
+      .addSelect('hanger.post_id', 'post_id')
+      .addSelect('post.content', 'content')
+      .addSelect('hashtag.name', 'name')
+      .addSelect('post.createdAt', 'createAt')
+      .from(Post, 'post')
+      .select('COUNT(*) AS hangerCount')
+      .limit(15)
+      .execute();
+  }
+
+  async getAllpost(){
+    return this.createQueryBuilder('post')
+      .innerJoin('post.hashtage', 'hashtag')
+      .innerJoin('post.picture', 'picture')
+      .innerJoin('post.hanger', 'hanger')
+      .select('post.title', 'title')
+      .addSelect('picture.picture_path', 'picture_path')
+      .addSelect('hanger.post_id', 'post_id')
+      .addSelect('post.content', 'content')
+      .addSelect('hashtag.name', 'name')
+      .addSelect('post.createdAt', 'createAt')
+      .from(Post, 'post')
+      .getMany()
+      
+  }
+
   async search(searchWord: string) {
     return this.createQueryBuilder('post')
       .innerJoin('post.hashtag', 'hashtag')
