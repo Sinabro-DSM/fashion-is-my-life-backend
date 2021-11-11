@@ -89,6 +89,24 @@ export class PostRepository extends Repository<Post> {
       .getMany()
       
   }
+  
+  //최신순 게시물
+  async postRecency(){
+    return this.createQueryBuilder('post')
+      .innerJoin('post.picture', 'picture')
+      .innerJoin('post.hanger', 'hanger')
+      .innerJoin('post.hashtag', 'hashtag')
+      .select('post.title', 'title')
+      .addSelect('picture.picture_path', 'picture_path')
+      .addSelect('hanger.post_id', 'post_id')
+      .addSelect('post.content', 'content')
+      .addSelect('hashtag.name', 'name')
+      .addSelect('post.createdAt', 'createAt')
+      .from(Post, 'post')
+      .orderBy('post.createdAt', 'DESC')
+      .limit(15)
+      .execute();
+  }
 
   async search(searchWord: string) {
     return this.createQueryBuilder('post')
