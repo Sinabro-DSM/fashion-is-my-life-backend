@@ -84,4 +84,8 @@ export class PostService {
   public async postLike(){
     return await this.postRepository.postLike();
   }
+
+  public async postRecency(){
+    return await this.postRepository.postRecency();
+  }
 }
