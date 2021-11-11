@@ -76,4 +76,12 @@ export class PostService {
   public async getClosetInfo(post_id: number) {
     return await this.postRepository.getClosetInfo(post_id);
   }
+
+  public async postAll(){
+    return await this.postRepository.getAllpost();
+  }
+
+  public async postLike(){
+    return await this.postRepository.postLike();
+  }
 }
