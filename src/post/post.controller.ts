@@ -58,4 +58,14 @@ export class PostController {
   public async getClosetInfo(@Param('post_id') post_id: number) {
     return await this.postService.getClosetInfo(post_id);
   }
+
+  @Get('/postall')
+  public async getPostAll(){
+    return await this.postService.postAll();
+  }
+
+  @Get('/like')
+  public async postLike(){
+    return await this.postService.postLike();
+  }
 }
