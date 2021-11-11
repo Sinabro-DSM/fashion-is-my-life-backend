@@ -68,4 +68,9 @@ export class PostController {
   public async postLike(){
     return await this.postService.postLike();
   }
+
+  @Get('/recency')
+  public async postRecency(){
+    return await this.postService.postRecency();
+  }
 }
