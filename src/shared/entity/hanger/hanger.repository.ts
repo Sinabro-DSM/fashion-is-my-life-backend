@@ -1,3 +1,5 @@
+import { deleteHangerRequestDto } from 'src/post/dto/delete-hanger.dto';
+import { postHangerRequestDto } from 'src/post/dto/post-hanger.dto';
 import { EntityRepository, Repository } from 'typeorm';
 import { Hanger } from './hanger.entity';
 
@@ -8,5 +10,12 @@ export class HangerRepository extends Repository<Hanger> {
       .select()
       .where('hanger.post_id = :post_id', { post_id: post_id })
       .getMany();
+  }
+
+  async postHanger(user_id: number, post_id: number) {
+    return this.createQueryBuilder('hanger')
+      .insert()
+      .into(Hanger)
+      .values([{ user_id: user_id, post_id: post_id }]);
   }
 }
