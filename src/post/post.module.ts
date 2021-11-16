@@ -8,6 +8,7 @@ import { PictureRepository } from 'src/shared/entity/picture/picture.repository'
 import { HashtagRepository } from 'src/shared/entity/hashtag/hashtag.repository';
 import { HangerRepository } from 'src/shared/entity/hanger/hanger.repository';
 import { JwtStrategy } from 'src/shared/jwt/passport/jwt.strategy';
+import { UserRepository } from 'src/shared/entity/user/user.repository';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { JwtStrategy } from 'src/shared/jwt/passport/jwt.strategy';
       PictureRepository,
       HashtagRepository,
       HangerRepository,
+      UserRepository,
     ]),
   ],
   controllers: [PostController],
