@@ -3,14 +3,14 @@ import { AuthService } from './auth.service';
 import { SignUpDto } from './dto/signup.dto';
 import { checkEmailDto } from './dto/check-email.dto';
 import { UserService } from 'src/user/user.service';
-
+import { LoginRequestDto } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(
     private readonly authService: AuthService,
     private readonly userService: UserService,
-    ) {}
+  ) {}
 
   @Post('/signup')
   public async signUp(@Body() user: SignUpDto) {
@@ -22,5 +22,9 @@ export class AuthController {
   public async emailAuthentication(@Body() body: checkEmailDto) {
     return await this.authService.sendMail(body.email);
   }
-}
 
+  @Post('/login')
+  public async login(@Body() dto: LoginRequestDto) {
+    return await this.authService.jwtLogin(dto);
+  }
+}
