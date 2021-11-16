@@ -72,6 +72,11 @@ export class PostService {
     return await this.hangerRepository.postHanger(user_id, post_id);
   }
 
+  public async deleteHanger(deleteHangerRequestDto: deleteHangerRequestDto) {
+    const { user_id, post_id } = deleteHangerRequestDto;
+    return await this.hangerRepository.deleteHanger(user_id, post_id);
+  }
+
   public async getPost(post_id: number) {
     return await this.postRepository.getPost(post_id);
   }
