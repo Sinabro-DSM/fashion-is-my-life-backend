@@ -77,15 +77,15 @@ export class PostService {
     return await this.postRepository.getClosetInfo(post_id);
   }
 
-  public async postAll(){
+  public async postAll() {
     return await this.postRepository.getAllpost();
   }
 
-  public async postLike(){
+  public async postLike() {
     return await this.postRepository.postLike();
   }
 
-  public async postRecency(){
+  public async postRecency() {
     return await this.postRepository.postRecency();
   }
 }
