@@ -1,4 +1,5 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { ClosetService } from './closet.service';
 import { closetResponseData } from './dto/closet.dto';
 
@@ -6,6 +7,7 @@ import { closetResponseData } from './dto/closet.dto';
 export class ClosetController {
   constructor(private readonly closetService: ClosetService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Get('/:userId')
   public async closet(
     @Param('user_id') user_id: number,
