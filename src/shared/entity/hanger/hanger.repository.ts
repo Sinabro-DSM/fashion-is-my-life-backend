@@ -18,4 +18,15 @@ export class HangerRepository extends Repository<Hanger> {
       .into(Hanger)
       .values([{ user_id: user_id, post_id: post_id }]);
   }
+
+  async deleteHanger(user_id: number, post_id: number) {
+    return this.createQueryBuilder('hanger')
+      .delete()
+      .from(Hanger)
+      .where('hanger.user_id = :user_id AND hanger.post_id = :post_id', {
+        user_id: user_id,
+        post_id: post_id,
+      })
+      .execute();
+  }
 }
