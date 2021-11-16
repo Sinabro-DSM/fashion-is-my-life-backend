@@ -24,7 +24,7 @@ export class AuthController {
   }
 
   @Post('/login')
-  public async login(@Body() dto: LoginRequestDto) {
-    return await this.authService.jwtLogin(dto);
+  public async logIn(@Body() dto: LoginRequestDto) {
+    return await this.authService.jwtLogIn(dto);
   }
 }
