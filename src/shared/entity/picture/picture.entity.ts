@@ -15,6 +15,9 @@ export class Picture {
   @Column({ length: 256 })
   picture_path: string;
 
+  @Column({ name: 'post_id' })
+  post_id: number;
+
   @ManyToOne((type) => Post, (post) => post.post_id, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
