@@ -7,6 +7,7 @@ import { PostService } from './post.service';
 import { PictureRepository } from 'src/shared/entity/picture/picture.repository';
 import { HashtagRepository } from 'src/shared/entity/hashtag/hashtag.repository';
 import { HangerRepository } from 'src/shared/entity/hanger/hanger.repository';
+import { JwtStrategy } from 'src/shared/jwt/passport/jwt.strategy';
 
 @Module({
   imports: [
@@ -21,6 +22,6 @@ import { HangerRepository } from 'src/shared/entity/hanger/hanger.repository';
     ]),
   ],
   controllers: [PostController],
-  providers: [PostService],
+  providers: [PostService, JwtStrategy],
 })
 export class PostModule {}
