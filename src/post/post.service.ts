@@ -59,7 +59,7 @@ export class PostService {
     return await this.postRepository.postRecommendation();
   }
 
-  public async searchHashtag(searchWord: string) {
+  public async search(searchWord: string) {
     return await this.postRepository.search(searchWord);
   }
 
@@ -67,5 +67,25 @@ export class PostService {
     const hangerCnt = await this.hangerRepository.getHanger(post_id);
 
     return hangerCnt.length;
+  }
+
+  public async getPost(post_id: number) {
+    return await this.postRepository.getPost(post_id);
+  }
+
+  public async getClosetInfo(post_id: number) {
+    return await this.postRepository.getClosetInfo(post_id);
+  }
+
+  public async postAll() {
+    return await this.postRepository.getAllpost();
+  }
+
+  public async postLike() {
+    return await this.postRepository.postLike();
+  }
+
+  public async postRecency() {
+    return await this.postRepository.postRecency();
   }
 }

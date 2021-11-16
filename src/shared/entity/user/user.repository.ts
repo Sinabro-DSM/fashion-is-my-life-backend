@@ -18,7 +18,7 @@ export class UserRepository extends Repository<User> {
     return this.createQueryBuilder()
       .update(User)
       .set({ nickname: nickname, profile_path: profile_url })
-      .where('user_id = user_id', { user_id })
+      .where('user.user_id = :user_id', { user_id: user_id })
       .execute();
   }
 }

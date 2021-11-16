@@ -36,19 +36,41 @@ export class PostController {
 
   @Get('/recommendation')
   public async postRecommendation() {
-    await this.postService.postRecommendation();
-    return { status: 200, message: 'success' };
+    return await this.postService.postRecommendation();
   }
 
   @Get()
-  public async searchHashtag(@Query() searchWord: string) {
-    await this.postService.searchHashtag(searchWord);
-    return { status: 200, message: 'success' };
+  public async search(@Query() searchWord: string) {
+    return await this.postService.search(searchWord);
   }
 
   @Get('/hanger/:postId')
   public async getHanger(@Body() post_id: number) {
-    await this.postService.getHanger(post_id);
-    return { status: 200, message: 'success' };
+    return await this.postService.getHanger(post_id);
+  }
+
+  @Get('/:postId')
+  public async getPost(@Param('post_id') post_id: number) {
+    return await this.postService.getPost(post_id);
+  }
+
+  @Get('/closet/:postId')
+  public async getClosetInfo(@Param('post_id') post_id: number) {
+    return await this.postService.getClosetInfo(post_id);
+  }
+
+  @Get('/postall')
+  public async getPostAll() {
+    return await this.postService.postAll();
+  }
+
+  @Get('/like')
+  public async postLike() {
+    return await this.postService.postLike();
+  }
+
+  @Get('/recency')
+  public async postRecency() {
+    return await this.postService.postRecency();
   }
 }
