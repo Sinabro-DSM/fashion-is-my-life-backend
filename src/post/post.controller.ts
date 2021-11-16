@@ -7,10 +7,14 @@ import {
   Post,
   Query,
   UploadedFiles,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { PostMulterOptions } from 'src/config/multer';
+import { deleteHangerRequestDto } from './dto/delete-hanger.dto';
+import { postHangerRequestDto } from './dto/post-hanger.dto';
 import { postRequestDto } from './dto/post-req.dto';
 import { PostService } from './post.service';
 
@@ -18,6 +22,7 @@ import { PostService } from './post.service';
 export class PostController {
   constructor(private readonly postService: PostService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   @UseInterceptors(FilesInterceptor('files', 10, PostMulterOptions))
   public async createPost(
@@ -27,16 +32,11 @@ export class PostController {
     await this.postService.createPost(postRequestData, files);
     return { status: 201, message: 'success' };
   }
-
+  @UseGuards(AuthGuard('jwt'))
   @Delete('/:postId')
   public async deletePost(@Param('post_id') post_id: number) {
     await this.postService.deletePost(post_id);
     return { status: 200, message: 'success' };
-  }
-
-  @Get('/recommendation')
-  public async postRecommendation() {
-    return await this.postService.postRecommendation();
   }
 
   @Get()
@@ -47,6 +47,12 @@ export class PostController {
   @Get('/hanger/:postId')
   public async getHanger(@Body() post_id: number) {
     return await this.postService.getHanger(post_id);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Post('/hanger')
+  public async postHanger(@Body() postHangerRequestDto: postHangerRequestDto) {
+    return await this.postService.postHanger(postHangerRequestDto);
   }
 
   @Get('/:postId')
@@ -72,5 +78,10 @@ export class PostController {
   @Get('/recency')
   public async postRecency() {
     return await this.postService.postRecency();
+  }
+
+  @Get('/recommendation')
+  public async postRecommendation() {
+    return await this.postService.postRecommendation();
   }
 }
