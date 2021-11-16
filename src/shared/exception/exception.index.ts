@@ -6,11 +6,19 @@ import {
 
 export const badRequestException = new BadRequestException();
 
-export const ExistEmailError = new ConflictException('Email already exist');
+export const notConfirmPasswordException = new BadRequestException(
+  'Not Confirm Password',
+);
 
 export const NotFoundUserIdError = new NotFoundException('NotFound UserId');
 
 export const notFoundEmailException = new NotFoundException('Not Found Email');
+
+export const notFoundUserException = new NotFoundException('Unregistered user');
+
+export const ExistEmailException = new ConflictException('Email already exist');
+
+export const ExistUserException = new ConflictException('User already exist');
 
 export const notFoundPostIdException = new NotFoundException(
   'Not Found PostId',
