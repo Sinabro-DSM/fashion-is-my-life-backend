@@ -60,17 +60,17 @@ export class PostController {
   }
 
   @Get('/postall')
-  public async getPostAll(){
+  public async getPostAll() {
     return await this.postService.postAll();
   }
 
   @Get('/like')
-  public async postLike(){
+  public async postLike() {
     return await this.postService.postLike();
   }
 
   @Get('/recency')
-  public async postRecency(){
+  public async postRecency() {
     return await this.postService.postRecency();
   }
 }
