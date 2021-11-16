@@ -8,7 +8,9 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Comment } from '../comment/comment.entity';
+import { Hanger } from '../hanger/hanger.entity';
 import { Hashtag } from '../hashtag/hashtag.entity';
+import { Picture } from '../picture/picture.entity';
 import { User } from '../user/user.entity';
 
 @Entity('post')
@@ -21,9 +23,6 @@ export class Post {
 
   @Column({ length: 256, nullable: true })
   content: string;
-
-  @Column({ length: 100 })
-  picture: string;
 
   @Column({ length: 30, nullable: true })
   top_info: string;
@@ -40,6 +39,9 @@ export class Post {
   @Column({ name: 'user_id' })
   user_id: number;
 
+  @OneToMany((type) => Hanger, (hanger) => hanger.user_id)
+  hanger!: Hanger;
+
   @ManyToOne((type) => User, (user) => user.user_id, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
@@ -52,4 +54,7 @@ export class Post {
 
   @OneToMany((type) => Comment, (comment) => comment.post)
   commnet: Comment[];
+
+  @OneToMany((type) => Picture, (picture) => picture.picture_id)
+  picture: Picture[];
 }
