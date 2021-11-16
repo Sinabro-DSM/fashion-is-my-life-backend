@@ -8,13 +8,18 @@ import * as bcrypt from 'bcrypt';
 import {
   ExistEmailException,
   ExistUserException,
+  notConfirmPasswordException,
+  notFoundUserException,
 } from 'src/shared/exception/exception.index';
+import { LoginRequestDto } from './dto/login.dto';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     @InjectRepository(User) private readonly userRepository: UserRepository,
     private mailerService: MailerService,
+    private jwtService: JwtService,
   ) {}
 
   public async signUp(user: SignUpDto): Promise<User> {
@@ -46,5 +51,31 @@ export class AuthService {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  public async jwtLogin(dto: LoginRequestDto) {
+    const { email, password } = dto;
+
+    const user: User = await this.userRepository.findOne({
+      where: { email },
+    });
+
+    if (!user) {
+      throw notFoundUserException;
+    }
+
+    const confirmPassword: boolean = await bcrypt.compare(
+      password,
+      user.password,
+    );
+
+    if (!confirmPassword) {
+      throw notConfirmPasswordException;
+    }
+    const payload = { email: email, sub: user.user_id };
+
+    return {
+      token: this.jwtService.sign(payload),
+    };
   }
 }
