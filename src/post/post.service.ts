@@ -9,6 +9,8 @@ import { PictureRepository } from 'src/shared/entity/picture/picture.repository'
 import { Post } from 'src/shared/entity/post/post.entity';
 import { PostRepository } from 'src/shared/entity/post/post.repository';
 import { notFoundPostIdException } from 'src/shared/exception/exception.index';
+import { deleteHangerRequestDto } from './dto/delete-hanger.dto';
+import { postHangerRequestDto } from './dto/post-hanger.dto';
 import { postRequestDto } from './dto/post-req.dto';
 
 @Injectable()
@@ -55,10 +57,6 @@ export class PostService {
     return await this.postRepository.deletePost(post_id);
   }
 
-  public async postRecommendation() {
-    return await this.postRepository.postRecommendation();
-  }
-
   public async search(searchWord: string) {
     return await this.postRepository.search(searchWord);
   }
@@ -67,6 +65,11 @@ export class PostService {
     const hangerCnt = await this.hangerRepository.getHanger(post_id);
 
     return hangerCnt.length;
+  }
+
+  public async postHanger(postHangerRequestDto: postHangerRequestDto) {
+    const { user_id, post_id } = postHangerRequestDto;
+    return await this.hangerRepository.postHanger(user_id, post_id);
   }
 
   public async getPost(post_id: number) {
@@ -79,6 +82,10 @@ export class PostService {
 
   public async postAll() {
     return await this.postRepository.getAllpost();
+  }
+
+  public async postRecommendation() {
+    return await this.postRepository.postRecommendation();
   }
 
   public async postLike() {
