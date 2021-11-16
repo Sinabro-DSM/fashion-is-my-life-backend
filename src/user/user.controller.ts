@@ -3,8 +3,10 @@ import {
   Controller,
   Put,
   UploadedFile,
+  UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ProfileMulterOptions } from 'src/config/multer';
 import { modifyProfileDto } from './dto/modifyProfile.dto';
@@ -14,6 +16,7 @@ import { UserService } from './user.service';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(AuthGuard('jwt'))
   @Put()
   @UseInterceptors(FileInterceptor('profile', ProfileMulterOptions))
   public async modifyProfile(
