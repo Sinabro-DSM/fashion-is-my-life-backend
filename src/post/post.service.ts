@@ -27,20 +27,24 @@ export class PostService {
 
   public async createPost(dto: postRequestDto, files: Express.Multer.File[]) {
     const post = new Post();
-    const files_url: Picture[] = await Promise.all(
-      files.map(async (file) => {
-        let picture = await this.pictureRepository.savePicture(file.filename);
-        return picture;
-      }),
-    );
 
     post.title = dto.title;
-    post.picture = files_url;
     post.top_info = dto.topInfo;
     post.bottoms_info = dto.bottomInfo;
     post.shoes_info = dto.shoesInfo;
     post.content = dto.content;
+
     const createdPost = await this.postRepository.save(post);
+
+    const files_url: Picture[] = await Promise.all(
+      files.map(async (file) => {
+        let picture = await this.pictureRepository.savePicture(
+          file.filename,
+          createdPost.post_id,
+        );
+        return picture;
+      }),
+    );
 
     dto.tags.map(async (tag) => {
       await this.hashtagRepository.saveHashtag({
