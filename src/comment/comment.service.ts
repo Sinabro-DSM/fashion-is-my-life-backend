@@ -10,6 +10,14 @@ export class CommentService {
     private readonly commentRepository: CommentRepository,
   ) {}
 
+  public async getComment(post_id: number) {
+    return await this.commentRepository.getComment(post_id);
+  }
+
+  public async createComment(post_id: number, comment: string) {
+    return await this.commentRepository.createComment(post_id, comment);
+  }
+
   public async deleteComment(comment_id: number) {
     return await this.commentRepository.deleteComment(comment_id);
   }
