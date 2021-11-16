@@ -53,13 +53,12 @@ export class AuthService {
     }
   }
 
-  public async jwtLogin(dto: LoginRequestDto) {
+  public async jwtLogIn(dto: LoginRequestDto) {
     const { email, password } = dto;
 
     const user: User = await this.userRepository.findOne({
       where: { email },
     });
-
     if (!user) {
       throw notFoundUserException;
     }
@@ -68,10 +67,10 @@ export class AuthService {
       password,
       user.password,
     );
-
     if (!confirmPassword) {
       throw notConfirmPasswordException;
     }
+
     const payload = { email: email, sub: user.user_id };
 
     return {
