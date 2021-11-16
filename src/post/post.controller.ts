@@ -32,6 +32,7 @@ export class PostController {
     await this.postService.createPost(postRequestData, files);
     return { status: 201, message: 'success' };
   }
+
   @UseGuards(AuthGuard('jwt'))
   @Delete('/:postId')
   public async deletePost(@Param('post_id') post_id: number) {
