@@ -6,9 +6,16 @@ import { UserRepository } from 'src/shared/entity/user/user.repository';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UserModule } from 'src/user/user.module';
+import { PassportModule } from '@nestjs/passport';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
+    PassportModule.register({ defaultStrategy: 'jwt', session: false }),
+    JwtModule.register({
+      secret: process.env.JWT_SECRET_KEY,
+      signOptions: { expiresIn: '1y' },
+    }),
     TypeOrmModule.forFeature([UserRepository]),
     UserModule,
     MailerModule.forRoot({
