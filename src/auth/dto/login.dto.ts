@@ -1,12 +1,8 @@
 import { IsEmail, IsString, Length } from 'class-validator';
 
-export class SignUpDto {
+export class LoginRequestDto {
   @IsEmail()
-  readonly email: string;
-
-  @IsString()
-  @Length(2, 20)
-  readonly nickname: string;
+  email: string;
 
   @IsString()
   @Length(8, 16)

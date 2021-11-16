@@ -1,3 +1,4 @@
+import { Exclude } from 'class-transformer';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Comment } from '../comment/comment.entity';
 import { Post } from '../post/post.entity';
@@ -18,6 +19,10 @@ export class User {
 
   @Column({ length: 200, nullable: true })
   profile_path: string;
+
+  @Column({ nullable: true })
+  @Exclude()
+  currentHashedRefreshToken?: string;
 
   @OneToMany((type) => Post, (post) => post.user_id)
   post: Post[];
