@@ -55,6 +55,14 @@ export class PostController {
     return await this.postService.postHanger(postHangerRequestDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
+  @Delete('/hanger')
+  public async deleteHanger(
+    @Body() deleteHangerRequestDto: deleteHangerRequestDto,
+  ) {
+    return await this.postService.deleteHanger(deleteHangerRequestDto);
+  }
+
   @Get('/:postId')
   public async getPost(@Param('post_id') post_id: number) {
     return await this.postService.getPost(post_id);
