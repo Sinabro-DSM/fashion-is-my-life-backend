@@ -39,7 +39,7 @@ export class Post {
   @Column({ name: 'user_id' })
   user_id: number;
 
-  @OneToMany((type) => Hanger, (hanger) => hanger.user_id)
+  @OneToMany((type) => Hanger, (hanger) => hanger.post)
   hanger!: Hanger;
 
   @ManyToOne((type) => User, (user) => user.user_id, {
@@ -55,6 +55,6 @@ export class Post {
   @OneToMany((type) => Comment, (comment) => comment.post)
   commnet: Comment[];
 
-  @OneToMany((type) => Picture, (picture) => picture.picture_id)
+  @OneToMany((type) => Picture, (picture) => picture.post)
   picture: Picture[];
 }
