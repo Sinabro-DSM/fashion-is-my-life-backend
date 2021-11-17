@@ -5,10 +5,10 @@ import { Comment } from './comment.entity';
 export class CommentRepository extends Repository<Comment> {
   async getComment(post_id: number) {
     return this.createQueryBuilder('comment')
-      .innerJoin('comment.user_id', 'user')
       .select('user.user_id', 'user_id')
       .addSelect('user.profile_path', 'profile_path')
       .addSelect('comment.comment', 'comment')
+      .innerJoin('comment.user_id', 'user')
       .where('post_id = :post_id', { post_id: post_id })
       .getMany();
   }
