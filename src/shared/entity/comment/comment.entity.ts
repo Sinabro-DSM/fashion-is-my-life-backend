@@ -19,15 +19,15 @@ export class Comment {
   @Column({ name: 'user_id' })
   user_id: number;
 
+  @Column({ name: 'post_id' })
+  post_id: number;
+
   @ManyToOne((type) => User, (user) => user.user_id, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'user_id' })
   user: User;
-
-  @Column({ name: 'post_id' })
-  post_id: number;
 
   @ManyToOne((type) => Post, (post) => post.post_id, {
     onUpdate: 'CASCADE',
