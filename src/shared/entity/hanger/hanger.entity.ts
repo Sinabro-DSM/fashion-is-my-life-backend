@@ -11,5 +11,5 @@ export class Hanger {
 
   @ManyToOne((type) => Post, (post) => post.hanger)
   @JoinColumn({ name: 'post_id' })
-  post: Post[];
+  post: Post;
 }
