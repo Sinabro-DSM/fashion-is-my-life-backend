@@ -13,8 +13,8 @@ async function bootstrap() {
   );
   await app.listen(3001);
   app.enableCors({
-    origin: '*',
-    allowedHeaders: "*"
-  })
+    origin: 'http://15.165.250.252:3001',
+    credentials: true,
+  });
 }
 bootstrap();
