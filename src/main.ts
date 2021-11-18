@@ -11,10 +11,11 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  await app.listen(3001);
   app.enableCors({
-    origin: 'http://15.165.250.252:3001',
-    credentials: true,
+    origin: '*',
+    methods: 'GET, PUT, POST, DELETE',
+    allowedHeaders: 'Content-Type, Authorization',
   });
+  await app.listen(3001);
 }
 bootstrap();
