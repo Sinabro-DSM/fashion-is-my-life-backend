@@ -15,11 +15,8 @@ async function bootstrap() {
     origin: '*',
     methods: 'GET, PUT, POST, DELETE',
     allowedHeaders: 'Content-Type, Authorization',
-<<<<<<< HEAD
   });
-=======
 });
->>>>>>> master
   await app.listen(3001);
 }
 bootstrap();
