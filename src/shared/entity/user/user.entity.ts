@@ -24,9 +24,9 @@ export class User {
   @Exclude()
   currentHashedRefreshToken?: string;
 
-  @OneToMany((type) => Post, (post) => post.user_id)
+  @OneToMany((type) => Post, (post) => post.user)
   post: Post[];
 
-  @OneToMany((type) => Comment, (comment) => comment.user_id)
+  @OneToMany((type) => Comment, (comment) => comment.user)
   commnet: Comment[];
 }
