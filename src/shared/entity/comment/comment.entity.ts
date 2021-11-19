@@ -22,14 +22,14 @@ export class Comment {
   @Column({ name: 'post_id' })
   post_id: number;
 
-  @ManyToOne((type) => User, (user) => user.user_id, {
+  @ManyToOne(() => User, (user) => user.commnet, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @ManyToOne((type) => Post, (post) => post.post_id, {
+  @ManyToOne(() => Post, (post) => post.commnet, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
