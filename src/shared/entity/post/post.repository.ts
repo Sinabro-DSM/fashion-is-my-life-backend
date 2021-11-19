@@ -39,7 +39,7 @@ export class PostRepository extends Repository<Post> {
     return false;
   }
 
-  async postRecommendation() {
+  async recommendation() {
     return this.createQueryBuilder('post')
       .select('post.title', 'title')
       .leftJoinAndSelect('picture.picture_path', 'picture_path')
@@ -50,7 +50,7 @@ export class PostRepository extends Repository<Post> {
       .from(Post, 'post')
       .orderBy('RANDOM()')
       .limit(15)
-      .execute();
+      .getMany();
   }
 
   //좋아요순 게시물
@@ -68,7 +68,7 @@ export class PostRepository extends Repository<Post> {
       .from(Post, 'post')
       .select('COUNT(*) AS hangerCount')
       .limit(15)
-      .execute();
+      .getMany();
   }
 
   async getAllpost() {
@@ -101,7 +101,7 @@ export class PostRepository extends Repository<Post> {
       .from(Post, 'post')
       .orderBy('post.createdAt', 'DESC')
       .limit(15)
-      .execute();
+      .getMany();
   }
 
   async search(searchWord: string) {
