@@ -4,7 +4,6 @@ import { User } from 'src/shared/entity/user/user.entity';
 import { UserRepository } from 'src/shared/entity/user/user.repository';
 import { modifyProfileDto } from './dto/modifyProfile.dto';
 
-
 @Injectable()
 export class UserService {
   constructor(
