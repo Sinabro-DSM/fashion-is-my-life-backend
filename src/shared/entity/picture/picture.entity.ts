@@ -18,7 +18,7 @@ export class Picture {
   @Column({ name: 'post_id' })
   post_id: number;
 
-  @ManyToOne((type) => Post, (post) => post.post_id, {
+  @ManyToOne(() => Post, (post) => post.picture, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
