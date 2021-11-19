@@ -94,7 +94,7 @@ export class PostService {
   }
 
   public async postRecommendation() {
-    return await this.postRepository.postRecommendation();
+    return await this.postRepository.recommendation();
   }
 
   public async postLike() {
