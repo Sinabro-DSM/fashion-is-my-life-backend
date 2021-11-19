@@ -42,7 +42,7 @@ export class Post {
   @OneToMany((type) => Hanger, (hanger) => hanger.post)
   hanger!: Hanger;
 
-  @ManyToOne((type) => User, (user) => user.user_id, {
+  @ManyToOne((type) => User, (user) => user.post, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })

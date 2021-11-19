@@ -9,7 +9,7 @@ export class Hanger {
   @PrimaryColumn()
   post_id: number;
 
-  @ManyToOne((type) => Post, (post) => post.hanger)
+  @ManyToOne(() => Post, (post) => post.hanger)
   @JoinColumn({ name: 'post_id' })
   post: Post;
 }
