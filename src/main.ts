@@ -15,7 +15,6 @@ async function bootstrap() {
     origin: '*',
     methods: 'GET, PUT, POST, DELETE',
     allowedHeaders: 'Content-Type, Authorization',
-  });
 });
   await app.listen(3001);
 }
