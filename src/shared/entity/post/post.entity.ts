@@ -39,6 +39,16 @@ export class Post {
   @Column({ name: 'user_id' })
   user_id: number;
 
+  @Column()
+  r:number;
+
+  @Column()
+  g:number;
+
+  @Column()
+  b:number;
+
+
   @OneToMany((type) => Hanger, (hanger) => hanger.post)
   hanger!: Hanger;
 
