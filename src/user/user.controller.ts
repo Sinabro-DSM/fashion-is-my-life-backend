@@ -31,7 +31,7 @@ export class UserController {
 
   @UseGuards(AuthGuard('jwt'))
   @Get('/:userId')
-  public async findOne(@Param('userId')id){
+  public async findOne(@Param('userId') id) {
     return this.userService.userInfo(id);
   }
 }
