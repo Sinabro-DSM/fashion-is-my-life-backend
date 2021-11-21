@@ -33,6 +33,9 @@ export class PostService {
     post.bottoms_info = dto.bottomInfo;
     post.shoes_info = dto.shoesInfo;
     post.content = dto.content;
+    post.r = dto.r;
+    post.g = dto.g;
+    post.b = dto.b;
 
     const createdPost = await this.postRepository.save(post);
 
