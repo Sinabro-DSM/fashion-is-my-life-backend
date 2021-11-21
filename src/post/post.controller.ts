@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Query,
+  UploadedFile,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -24,12 +25,19 @@ export class PostController {
 
   @UseGuards(AuthGuard('jwt'))
   @Post()
-  @UseInterceptors(FilesInterceptor('files', 10, PostMulterOptions))
-  public async createPost(
-    @UploadedFiles() files: Express.Multer.File[],
-    @Body() postRequestData: postRequestDto,
+  public async createPost(@Body() postRequestData: postRequestDto) {
+    await this.postService.createPost(postRequestData);
+    return { status: 201, message: 'success' };
+  }
+
+  @UseGuards(AuthGuard('jtw'))
+  @Post('/:post_id')
+  @UseInterceptors(FilesInterceptor('file', 1, PostMulterOptions))
+  public async createPicture(
+    @UploadedFile() file: Express.Multer.File,
+    @Param('post_id') post_id: number,
   ) {
-    await this.postService.createPost(postRequestData, files);
+    await this.postService.createPicture(file, post_id);
     return { status: 201, message: 'success' };
   }
 
