@@ -8,11 +8,12 @@ import { closetResponseData } from './dto/closet.dto';
 @Injectable()
 export class ClosetService {
   constructor(
-    @InjectRepository(Post) private readonly postRepository: PostRepository,
+    @InjectRepository(Post)
+    private readonly postRepository: PostRepository,
   ) {}
 
   public async closet(user_id: number): Promise<closetResponseData> {
-    if (await this.postRepository.findOne({ user_id: user_id })) {
+    if (!(await this.postRepository.findOne({ user_id: user_id }))) {
       throw NotFoundUserIdError;
     }
     const myCloset = await this.postRepository.closet(user_id);
