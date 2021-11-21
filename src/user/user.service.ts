@@ -21,6 +21,6 @@ export class UserService {
   }
 
   public async userInfo(user_id: number) {
-    return await this.userRepository.getUserInfo(user_id);
+    return await this.userRepository.findOne(user_id);
   }
 }
