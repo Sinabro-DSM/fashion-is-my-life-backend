@@ -16,11 +16,11 @@ import { UserRepository } from 'src/shared/entity/user/user.repository';
       dest: './upload',
     }),
     TypeOrmModule.forFeature([
+      UserRepository,
       PostRepository,
       PictureRepository,
       HashtagRepository,
       HangerRepository,
-      UserRepository,
     ]),
   ],
   controllers: [PostController],
