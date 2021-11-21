@@ -1,5 +1,4 @@
 import { SignUpDto } from 'src/auth/dto/sign-up.dto';
-import { getUserInfo } from 'src/user/dto/getUserInfo.dto';
 import { modifyProfileDto } from 'src/user/dto/modifyProfile.dto';
 import { EntityRepository, Repository } from 'typeorm';
 import { User } from './user.entity';
