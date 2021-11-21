@@ -64,11 +64,6 @@ export class PostController {
     return await this.postService.deleteHanger(deleteHangerRequestDto);
   }
 
-  @Get('/:postId')
-  public async getPost(@Param('post_id') post_id: number) {
-    return await this.postService.getPost(post_id);
-  }
-
   @Get('/closet/:postId')
   public async getClosetInfo(@Param('post_id') post_id: number) {
     return await this.postService.getClosetInfo(post_id);
@@ -91,6 +86,12 @@ export class PostController {
 
   @Get('/recommendation')
   public async postRecommendation() {
+    console.log(1);
     return await this.postService.postRecommendation();
+  }
+
+  @Get('/:postId')
+  public async getPost(@Param('post_id') post_id: number) {
+    return await this.postService.getPost(post_id);
   }
 }
