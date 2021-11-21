@@ -7,6 +7,7 @@ import { SignUpDto } from './dto/sign-up.dto';
 import * as bcrypt from 'bcrypt';
 import {
   ExistEmailException,
+  ExistNicknameException,
   ExistUserException,
   notConfirmPasswordException,
   notFoundUserException,
@@ -25,6 +26,8 @@ export class AuthService {
   public async signUp(user: SignUpDto): Promise<User> {
     if (await this.userRepository.findOne({ email: user.email })) {
       throw ExistEmailException;
+    } else if (await this.userRepository.findOne({ email: user.nickname })) {
+      throw ExistNicknameException;
     }
     const hashPassword = await bcrypt.hash(user.password, 12);
     user.password = hashPassword;
@@ -75,7 +78,7 @@ export class AuthService {
 
     return {
       token: this.jwtService.sign(payload),
-      userId: user.user_id
+      userId: user.user_id,
     };
   }
 }
