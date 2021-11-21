@@ -20,6 +20,10 @@ export const ExistEmailException = new ConflictException('Email already exist');
 
 export const ExistUserException = new ConflictException('User already exist');
 
+export const ExistNicknameException = new ConflictException(
+  'Nickname already exits',
+);
+
 export const notFoundPostIdException = new NotFoundException(
   'Not Found PostId',
 );
