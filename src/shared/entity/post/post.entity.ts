@@ -39,15 +39,14 @@ export class Post {
   @Column({ name: 'user_id' })
   user_id: number;
 
-  @Column()
-  r:number;
+  @Column({ nullable: true })
+  r: number;
 
-  @Column()
-  g:number;
+  @Column({ nullable: true })
+  g: number;
 
-  @Column()
-  b:number;
-
+  @Column({ nullable: true })
+  b: number;
 
   @OneToMany((type) => Hanger, (hanger) => hanger.post)
   hanger!: Hanger;
