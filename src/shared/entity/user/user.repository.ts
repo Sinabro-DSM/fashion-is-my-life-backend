@@ -1,4 +1,5 @@
 import { SignUpDto } from 'src/auth/dto/sign-up.dto';
+import { getUserInfo } from 'src/user/dto/getUserInfo.dto';
 import { modifyProfileDto } from 'src/user/dto/modifyProfile.dto';
 import { EntityRepository, Repository } from 'typeorm';
 import { User } from './user.entity';
@@ -20,5 +21,15 @@ export class UserRepository extends Repository<User> {
       .set({ nickname: nickname, profile_path: profile_url })
       .where('user.user_id = :user_id', { user_id: user_id })
       .execute();
+  }
+
+  async getUserInfo(user_id: number) {
+    return this.createQueryBuilder('user')
+      .select('user.email', 'email')
+      .addSelect('user.nickname', 'nickname')
+      .addSelect('post.post_id', 'post_id')
+      .innerJoin('user.post', 'post')
+      .where('user.user_id = :user_id', { user_id: user_id })
+      .getMany();
   }
 }
