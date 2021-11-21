@@ -45,13 +45,15 @@ export class PostRepository extends Repository<Post> {
   async recommendation() {
     return this.createQueryBuilder('post')
       .select('post.title', 'title')
-      .leftJoinAndSelect('picture.picture_path', 'picture_path')
-      .leftJoinAndSelect('hanger.post_id', 'post_id')
+      .addSelect('picture.picture_path', 'picture_path')
+      .addSelect('hanger.post_id', 'post_id')
       .addSelect('post.content', 'content')
-      .leftJoinAndSelect('hashtag.name', 'name')
+      .addSelect('hashtag.name', 'name')
       .addSelect('post.createdAt', 'createdAt')
-      .from(Post, 'post')
-      .orderBy('RANDOM()')
+      .innerJoin('post.picture', 'picture')
+      .innerJoin('post.hanger', 'hanger')
+      .innerJoin('post.hashtag', 'hashtag')
+      .orderBy('RAND()')
       .limit(15)
       .getMany();
   }
@@ -68,7 +70,6 @@ export class PostRepository extends Repository<Post> {
       .innerJoin('post.picture', 'picture')
       .innerJoin('post.hanger', 'hanger')
       .innerJoin('post.hashtag', 'hashtag')
-      .from(Post, 'post')
       .select('COUNT(*) AS hangerCount')
       .limit(15)
       .getMany();
@@ -88,7 +89,6 @@ export class PostRepository extends Repository<Post> {
       .innerJoin('post.hashtage', 'hashtag')
       .innerJoin('post.picture', 'picture')
       .innerJoin('post.hanger', 'hanger')
-      .from(Post, 'post')
       .getMany();
   }
 
@@ -104,7 +104,6 @@ export class PostRepository extends Repository<Post> {
       .innerJoin('post.picture', 'picture')
       .innerJoin('post.hanger', 'hanger')
       .innerJoin('post.hashtag', 'hashtag')
-      .from(Post, 'post')
       .orderBy('post.createdAt', 'DESC')
       .limit(15)
       .getMany();
