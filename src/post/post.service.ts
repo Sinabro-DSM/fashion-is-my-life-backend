@@ -16,8 +16,7 @@ import { postRequestDto } from './dto/post-req.dto';
 @Injectable()
 export class PostService {
   constructor(
-    @InjectRepository(Post)
-    private readonly postRepository: PostRepository,
+    @InjectRepository(Post) private readonly postRepository: PostRepository,
     @InjectRepository(Picture)
     private readonly pictureRepository: PictureRepository,
     @InjectRepository(Hashtag)
@@ -26,7 +25,7 @@ export class PostService {
     private readonly hangerRepository: HangerRepository,
   ) {}
 
-  public async createPost(dto: postRequestDto, files: Express.Multer.File[]) {
+  public async createPost(dto: postRequestDto) {
     const post = new Post();
 
     post.title = dto.title;
@@ -40,22 +39,16 @@ export class PostService {
 
     const createdPost = await this.postRepository.save(post);
 
-    const files_url: Picture[] = await Promise.all(
-      files.map(async (file) => {
-        let picture = await this.pictureRepository.savePicture(
-          file.filename,
-          createdPost.post_id,
-        );
-        return picture;
-      }),
-    );
-
     dto.tags.map(async (tag) => {
       await this.hashtagRepository.saveHashtag({
         name: tag,
         post_id: createdPost.post_id,
       });
     });
+  }
+
+  public async createPicture(file: Express.Multer.File, post_id: number) {
+    return await this.pictureRepository.savePicture(file.filename, post_id);
   }
 
   public async deletePost(post_id: number) {
