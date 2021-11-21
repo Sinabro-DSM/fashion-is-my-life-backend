@@ -90,7 +90,7 @@ export class PostController {
     return await this.postService.postRecommendation();
   }
 
-  @Get('/:postId')
+  @Get('/:post_id')
   public async getPost(@Param('post_id') post_id: number) {
     return await this.postService.getPost(post_id);
   }
