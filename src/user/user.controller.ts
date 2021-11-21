@@ -1,6 +1,8 @@
 import {
   Body,
   Controller,
+  Get,
+  Param,
   Put,
   UploadedFile,
   UseGuards,
@@ -10,6 +12,7 @@ import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ProfileMulterOptions } from 'src/config/multer';
 import { modifyProfileDto } from './dto/modifyProfile.dto';
+import { UserInfoReqDto } from './dto/userInfoReqDto.dto';
 import { UserService } from './user.service';
 
 @Controller('user')
@@ -25,5 +28,11 @@ export class UserController {
   ) {
     await this.userService.modifyProfile(profile.filename, modifyProfileDto);
     return { status: 200, message: 'success' };
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('/:userId')
+  public async UserInfo(@Param('/:user_id')user_id: number,):Promise<UserInfoReqDto>{
+    return await this.userService.userInfo(user_id);
   }
 }
