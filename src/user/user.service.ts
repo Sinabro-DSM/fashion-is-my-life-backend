@@ -2,6 +2,7 @@ import { Injectable, Param } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/shared/entity/user/user.entity';
 import { UserRepository } from 'src/shared/entity/user/user.repository';
+import { getUserInfo } from './dto/getUserInfo.dto';
 import { modifyProfileDto } from './dto/modifyProfile.dto';
 
 @Injectable()
@@ -20,7 +21,7 @@ export class UserService {
     );
   }
 
-  public async userInfo(userId){
-    return await this.userRepository.findByIds(userId);
+  public async userInfo(user_id: number) {
+    return await this.userRepository.getUserInfo(user_id);
   }
 }
