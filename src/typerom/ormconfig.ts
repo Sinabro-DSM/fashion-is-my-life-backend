@@ -13,7 +13,7 @@ const connectionOptions: DBConnectionOptions = {
     username: process.env.DEVELOPMENT_DATABASE_USER,
     password: process.env.DEVELOPMENT_DATABASE_PASSWORD,
     database: process.env.DEVELOPMENT_DATABASE_NAME,
-    synchronize: false,
+    synchronize: true,
     logging: true,
     entities: ['./dist/**/*.entity.js'],
   },
