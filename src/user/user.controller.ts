@@ -30,7 +30,7 @@ export class UserController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('/:user_id')
+  @Get(':user_id')
   public async userInfo(@Param('user_id') user_id: number) {
     return this.userService.userInfo(user_id);
   }
