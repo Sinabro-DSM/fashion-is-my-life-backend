@@ -1,4 +1,5 @@
 import { closetResponseData } from 'src/closet/dto/closet.dto';
+import { getFeedTooColorDto } from 'src/post/dto/getFeedTooColor.dto';
 import { EntityRepository, Repository } from 'typeorm';
 import { Post } from './post.entity';
 
@@ -21,6 +22,10 @@ export class PostRepository extends Repository<Post> {
       .innerJoin('post.picture', 'picture')
       .where('hanger.user_id = :user_id', { user_id: user_id })
       .getMany() as closetResponseData;
+  }
+
+  async getFeedTooColor(r: number, g: number, b: number) {
+    return this.createQueryBuilder();
   }
 
   async deletePost(post_id: number) {
@@ -136,13 +141,10 @@ export class PostRepository extends Repository<Post> {
       .addSelect('post.content', 'content')
       .addSelect('hashtag.name', 'name')
       .addSelect('post.createdAt', 'createdAt')
-      .addSelect('post.r', 'r')
-      .addSelect('post.g', 'g')
-      .addSelect('post.b', 'b')
       .innerJoin('post.picture', 'picture')
       .innerJoin('post.hanger', 'hanger')
       .innerJoin('post.hashtag', 'hashtag')
-      .where('post.post_id = :post_id', { post_id: post_id })
+      .where('post.post_id = :post_id', { post_id })
       .getOne();
   }
 
