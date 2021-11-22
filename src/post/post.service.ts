@@ -65,7 +65,7 @@ export class PostService {
   }
 
   public async deletePost(post_id: number) {
-    if (!(await this.postRepository.checkExistPost(post_id))) {
+    if (await this.postRepository.checkExistPost(post_id)) {
       throw notFoundPostIdException;
     }
     return await this.postRepository.deletePost(post_id);
