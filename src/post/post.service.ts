@@ -59,6 +59,11 @@ export class PostService {
     return await this.pictureRepository.savePicture(file, post_id);
   }
 
+  public async getFeedTooColor(getFeedTooColorDto: getFeedTooColorDto) {
+    const { r, g, b } = getFeedTooColorDto;
+    return await this.postRepository.getFeedTooColor(r, g, b);
+  }
+
   public async deletePost(post_id: number) {
     if (!(await this.postRepository.checkExistPost(post_id))) {
       throw notFoundPostIdException;
