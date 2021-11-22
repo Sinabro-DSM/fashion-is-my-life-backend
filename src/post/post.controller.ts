@@ -6,6 +6,7 @@ import {
   Param,
   Post,
   Query,
+  Req,
   UploadedFile,
   UploadedFiles,
   UseGuards,
@@ -13,7 +14,9 @@ import {
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { FilesInterceptor } from '@nestjs/platform-express';
+import { Request } from 'express';
 import { PostMulterOptions } from 'src/config/multer';
+import { User } from 'src/shared/entity/user/user.entity';
 import { deleteHangerRequestDto } from './dto/delete-hanger.dto';
 import { postHangerRequestDto } from './dto/post-hanger.dto';
 import { postRequestDto } from './dto/post-req.dto';
@@ -24,9 +27,13 @@ export class PostController {
   constructor(private readonly postService: PostService) {}
 
   @UseGuards(AuthGuard('jwt'))
-  @Post()
-  public async createPost(@Body() postRequestData: postRequestDto) {
-    await this.postService.createPost(postRequestData);
+  @Post('/upload')
+  public async createPost(
+    @Body() postRequestData: postRequestDto,
+    @Req() req: Request,
+  ) {
+    console.log(req.user);
+    await this.postService.createPost(postRequestData, req.user as User);
     return { status: 201, message: 'success' };
   }
 
