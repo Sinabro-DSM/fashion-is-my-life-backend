@@ -26,7 +26,6 @@ export class UserRepository extends Repository<User> {
     return await this.createQueryBuilder('user')
       .select('user.email', 'email')
       .addSelect('user.nickname', 'nickname')
-      .addSelect('user.post_id', 'post_id')
       .innerJoin('user.post', 'post')
       .where("user.id = :user_id", { user_id: user_id })
       .getMany();
