@@ -51,7 +51,7 @@ export class PostService {
   }
 
   public async createPicture(file: Express.Multer.File, post_id: number) {
-    return await this.pictureRepository.savePicture(file.filename, post_id);
+    return await this.pictureRepository.savePicture(file.originalname, post_id);
   }
 
   public async deletePost(post_id: number) {
