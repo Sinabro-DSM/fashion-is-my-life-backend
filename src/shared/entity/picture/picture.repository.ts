@@ -7,8 +7,9 @@ export class PictureRepository extends Repository<Picture> {
     let newPicture: Picture;
 
     newPicture = this.create({
-      post_id: post_id,
+      picture_id: post_id,
       picture_path: file_path,
+      post_id: post_id,
     });
     let picture = await this.save(newPicture);
 
