@@ -18,7 +18,8 @@ import { postRequestDto } from './dto/post-req.dto';
 @Injectable()
 export class PostService {
   constructor(
-    @InjectRepository(Post) private readonly postRepository: PostRepository,
+    @InjectRepository(Post)
+    private readonly postRepository: PostRepository,
     @InjectRepository(Picture)
     private readonly pictureRepository: PictureRepository,
     @InjectRepository(Hashtag)
