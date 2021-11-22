@@ -15,8 +15,10 @@ import { AuthGuard } from '@nestjs/passport';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Request } from 'express';
 import { PostMulterOptions } from 'src/config/multer';
+import { MulterFileInterface } from 'src/config/multer.interface';
 import { User } from 'src/shared/entity/user/user.entity';
 import { deleteHangerRequestDto } from './dto/delete-hanger.dto';
+import { getFeedTooColorDto } from './dto/getFeedTooColor.dto';
 import { postHangerRequestDto } from './dto/post-hanger.dto';
 import { postRequestDto } from './dto/post-req.dto';
 import { PostService } from './post.service';
@@ -42,7 +44,7 @@ export class PostController {
   @Post('/:post_id')
   @UseInterceptors(FileInterceptor('file', PostMulterOptions))
   public async createPicture(
-    @UploadedFile() file: Express.Multer.File,
+    @UploadedFile() file: MulterFileInterface,
     @Param('post_id') post_id: number,
   ) {
     await this.postService.createPicture(file, post_id);
@@ -102,7 +104,6 @@ export class PostController {
 
   @Get('/recommendation')
   public async postRecommendation() {
-    console.log(1);
     return await this.postService.postRecommendation();
   }
 
