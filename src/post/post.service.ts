@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Request } from 'express';
 import { Hanger } from 'src/shared/entity/hanger/hanger.entity';
 import { HangerRepository } from 'src/shared/entity/hanger/hanger.repository';
 import { Hashtag } from 'src/shared/entity/hashtag/hashtag.entity';
@@ -8,6 +9,7 @@ import { Picture } from 'src/shared/entity/picture/picture.entity';
 import { PictureRepository } from 'src/shared/entity/picture/picture.repository';
 import { Post } from 'src/shared/entity/post/post.entity';
 import { PostRepository } from 'src/shared/entity/post/post.repository';
+import { User } from 'src/shared/entity/user/user.entity';
 import { notFoundPostIdException } from 'src/shared/exception/exception.index';
 import { deleteHangerRequestDto } from './dto/delete-hanger.dto';
 import { postHangerRequestDto } from './dto/post-hanger.dto';
@@ -25,7 +27,7 @@ export class PostService {
     private readonly hangerRepository: HangerRepository,
   ) {}
 
-  public async createPost(dto: postRequestDto) {
+  public async createPost(dto: postRequestDto, user: User) {
     const post = new Post();
 
     post.title = dto.title;
@@ -33,6 +35,7 @@ export class PostService {
     post.bottoms_info = dto.bottomInfo;
     post.shoes_info = dto.shoesInfo;
     post.content = dto.content;
+    post.user_id = user.user_id;
     post.r = dto.r;
     post.g = dto.g;
     post.b = dto.b;
