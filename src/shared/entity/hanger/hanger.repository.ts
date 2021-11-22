@@ -16,7 +16,8 @@ export class HangerRepository extends Repository<Hanger> {
     return this.createQueryBuilder('hanger')
       .insert()
       .into(Hanger)
-      .values([{ user_id: user_id, post_id: post_id }]);
+      .values([{ user_id: user_id, post_id: post_id }])
+      .execute();
   }
 
   async deleteHanger(user_id: number, post_id: number) {
