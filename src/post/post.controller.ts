@@ -31,8 +31,11 @@ export class PostController {
     @Body() postRequestData: postRequestDto,
     @Req() req: Request,
   ) {
-    await this.postService.createPost(postRequestData, req.user as User);
-    return { status: 201, message: 'success' };
+    const post_id = await this.postService.createPost(
+      postRequestData,
+      req.user as User,
+    );
+    return post_id;
   }
 
   @UseGuards(AuthGuard('jwt'))
