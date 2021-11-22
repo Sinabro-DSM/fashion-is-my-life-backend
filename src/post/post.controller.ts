@@ -37,7 +37,7 @@ export class PostController {
     return { status: 201, message: 'success' };
   }
 
-  @UseGuards(AuthGuard('jtw'))
+  @UseGuards(AuthGuard('jwt'))
   @Post('/:post_id')
   @UseInterceptors(FilesInterceptor('file', 1, PostMulterOptions))
   public async createPicture(
