@@ -23,12 +23,12 @@ export class UserRepository extends Repository<User> {
   }
 
   async getUserInfo(user_id: number) {
-    return this.createQueryBuilder('user')
+    return await this.createQueryBuilder('user')
       .select('user.email', 'email')
       .addSelect('user.nickname', 'nickname')
-      .addSelect('post.post_id', 'post_id')
-      .innerJoin('user.post', 'post')
-      .where('user.user_id = :user_id', { user_id })
+      .addSelect('user.post_id', 'post_id')
+      .innerJoin('post.post_id', 'post_id')
+      .where("user.id = :id", { id: user_id })
       .getMany();
   }
 }
