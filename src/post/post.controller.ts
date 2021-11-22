@@ -52,7 +52,7 @@ export class PostController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Delete('/:postId')
+  @Delete('/:post_id')
   public async deletePost(@Param('post_id') post_id: number) {
     await this.postService.deletePost(post_id);
     return { status: 200, message: 'success' };
