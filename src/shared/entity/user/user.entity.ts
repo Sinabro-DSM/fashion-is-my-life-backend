@@ -1,6 +1,7 @@
 import { Exclude } from 'class-transformer';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { Comment } from '../comment/comment.entity';
+import { Hanger } from '../hanger/hanger.entity';
 import { Post } from '../post/post.entity';
 
 @Entity('user')
@@ -24,9 +25,12 @@ export class User {
   @Exclude()
   currentHashedRefreshToken?: string;
 
-  @OneToMany((type) => Post, (post) => post.user)
+  @OneToMany(() => Post, (post) => post.user)
   post: Post[];
 
-  @OneToMany((type) => Comment, (comment) => comment.user)
+  @OneToMany(() => Comment, (comment) => comment.user)
   commnet: Comment[];
+
+  @OneToMany(() => Hanger, (hanger) => hanger.user)
+  hanger!: Hanger;
 }
