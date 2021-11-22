@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MulterFileInterface } from 'src/config/multer.interface';
 import { Hanger } from 'src/shared/entity/hanger/hanger.entity';
 import { HangerRepository } from 'src/shared/entity/hanger/hanger.repository';
 import { Hashtag } from 'src/shared/entity/hashtag/hashtag.entity';
@@ -11,6 +12,7 @@ import { PostRepository } from 'src/shared/entity/post/post.repository';
 import { User } from 'src/shared/entity/user/user.entity';
 import { notFoundPostIdException } from 'src/shared/exception/exception.index';
 import { deleteHangerRequestDto } from './dto/delete-hanger.dto';
+import { getFeedTooColorDto } from './dto/getFeedTooColor.dto';
 import { postHangerRequestDto } from './dto/post-hanger.dto';
 import { postRequestDto } from './dto/post-req.dto';
 
@@ -52,8 +54,9 @@ export class PostService {
     return createdPost.post_id;
   }
 
-  public async createPicture(file: Express.Multer.File, post_id: number) {
-    return await this.pictureRepository.savePicture(file.originalname, post_id);
+  public async createPicture(file: MulterFileInterface, post_id: number) {
+    console.log(file);
+    return await this.pictureRepository.savePicture(file, post_id);
   }
 
   public async deletePost(post_id: number) {
