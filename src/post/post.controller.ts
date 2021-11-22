@@ -58,6 +58,11 @@ export class PostController {
     return { status: 200, message: 'success' };
   }
 
+  @Get('/color')
+  public async getFeedTooColor(@Body() getFeedTooColorDto: getFeedTooColorDto) {
+    return await this.postService.getFeedTooColor(getFeedTooColorDto);
+  }
+
   @Get()
   public async search(@Query() searchWord: string) {
     return await this.postService.search(searchWord);
