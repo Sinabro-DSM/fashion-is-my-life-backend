@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Request } from 'express';
 import { Hanger } from 'src/shared/entity/hanger/hanger.entity';
 import { HangerRepository } from 'src/shared/entity/hanger/hanger.repository';
 import { Hashtag } from 'src/shared/entity/hashtag/hashtag.entity';
