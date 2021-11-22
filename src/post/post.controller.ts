@@ -8,12 +8,11 @@ import {
   Query,
   Req,
   UploadedFile,
-  UploadedFiles,
   UseGuards,
   UseInterceptors,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
-import { FilesInterceptor } from '@nestjs/platform-express';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Request } from 'express';
 import { PostMulterOptions } from 'src/config/multer';
 import { User } from 'src/shared/entity/user/user.entity';
@@ -32,14 +31,13 @@ export class PostController {
     @Body() postRequestData: postRequestDto,
     @Req() req: Request,
   ) {
-    console.log(req.user);
     await this.postService.createPost(postRequestData, req.user as User);
     return { status: 201, message: 'success' };
   }
 
   @UseGuards(AuthGuard('jwt'))
   @Post('/:post_id')
-  @UseInterceptors(FilesInterceptor('file', 1, PostMulterOptions))
+  @UseInterceptors(FileInterceptor('file', PostMulterOptions))
   public async createPicture(
     @UploadedFile() file: Express.Multer.File,
     @Param('post_id') post_id: number,
