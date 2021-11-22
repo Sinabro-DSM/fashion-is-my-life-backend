@@ -27,7 +27,7 @@ export class UserRepository extends Repository<User> {
       .select('user.email', 'email')
       .addSelect('user.nickname', 'nickname')
       .addSelect('user.post_id', 'post_id')
-      .innerJoin('post.post_id', 'post_id')
+      .innerJoin('user.post', 'post')
       .where("user.id = :id", { id: user_id })
       .getMany();
   }
