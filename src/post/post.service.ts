@@ -55,7 +55,6 @@ export class PostService {
   }
 
   public async createPicture(file: MulterFileInterface, post_id: number) {
-    console.log(file);
     return await this.pictureRepository.savePicture(file, post_id);
   }
 
