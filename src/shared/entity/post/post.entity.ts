@@ -48,22 +48,22 @@ export class Post {
   @Column({ nullable: true })
   b: number;
 
-  @OneToMany((type) => Hanger, (hanger) => hanger.post)
+  @OneToMany(() => Hanger, (hanger) => hanger.post)
   hanger!: Hanger;
 
-  @ManyToOne((type) => User, (user) => user.post, {
+  @ManyToOne(() => User, (user) => user.post, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'user_id' })
   user: User;
 
-  @OneToMany((type) => Hashtag, (hashtag) => hashtag.post)
+  @OneToMany(() => Hashtag, (hashtag) => hashtag.post)
   hashtag: Hashtag[];
 
-  @OneToMany((type) => Comment, (comment) => comment.post)
+  @OneToMany(() => Comment, (comment) => comment.post)
   commnet: Comment[];
 
-  @OneToMany((type) => Picture, (picture) => picture.post)
+  @OneToMany(() => Picture, (picture) => picture.post)
   picture: Picture[];
 }
