@@ -48,6 +48,8 @@ export class PostService {
         post_id: createdPost.post_id,
       });
     });
+
+    return createdPost.post_id;
   }
 
   public async createPicture(file: Express.Multer.File, post_id: number) {
