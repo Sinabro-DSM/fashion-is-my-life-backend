@@ -59,7 +59,6 @@ export class PostRepository extends Repository<Post> {
       .innerJoin('post.hanger', 'hanger')
       .innerJoin('post.hashtag', 'hashtag')
       .orderBy('RAND()')
-      .limit(15)
       .getMany();
   }
 
@@ -144,7 +143,7 @@ export class PostRepository extends Repository<Post> {
       .innerJoin('post.picture', 'picture')
       .innerJoin('post.hanger', 'hanger')
       .innerJoin('post.hashtag', 'hashtag')
-      .where('post.post_id = :post_id', { post_id })
+      .where('post.post_id = :post_id', { post_id: post_id })
       .getOne();
   }
 
