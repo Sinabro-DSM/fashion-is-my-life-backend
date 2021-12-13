@@ -40,8 +40,7 @@ export class PostController {
     return post_id;
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Post('/:post_id')
+  @Post('/file/:post_id')
   @UseInterceptors(FileInterceptor('file', PostMulterOptions))
   public async createPicture(
     @UploadedFile() file: MulterFileInterface,
@@ -68,15 +67,11 @@ export class PostController {
     return await this.postService.search(searchWord);
   }
 
-  @Get('/hanger/:postId')
-  public async getHanger(@Body() post_id: number) {
-    return await this.postService.getHanger(post_id);
-  }
-
   @UseGuards(AuthGuard('jwt'))
   @Post('/hanger')
   public async postHanger(@Body() postHangerRequestDto: postHangerRequestDto) {
-    return await this.postService.postHanger(postHangerRequestDto);
+    await this.postService.postHanger(postHangerRequestDto);
+    return { status: 201, message: 'succes' };
   }
 
   @UseGuards(AuthGuard('jwt'))
@@ -84,7 +79,13 @@ export class PostController {
   public async deleteHanger(
     @Body() deleteHangerRequestDto: deleteHangerRequestDto,
   ) {
-    return await this.postService.deleteHanger(deleteHangerRequestDto);
+    await this.postService.deleteHanger(deleteHangerRequestDto);
+    return { status: 200, message: 'succes' };
+  }
+
+  @Get('/hanger/:postId')
+  public async getHanger(@Body() post_id: number) {
+    return await this.postService.getHanger(post_id);
   }
 
   @Get('/closet/:postId')
