@@ -1,9 +1,16 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Post } from '../post/post.entity';
 
 @Entity('picture')
 export class Picture {
-  @PrimaryColumn()
+  @PrimaryGeneratedColumn()
   picture_id: number;
 
   @Column({ length: 256 })
