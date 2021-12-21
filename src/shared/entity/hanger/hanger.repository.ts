@@ -1,5 +1,3 @@
-import { deleteHangerRequestDto } from 'src/post/dto/delete-hanger.dto';
-import { postHangerRequestDto } from 'src/post/dto/post-hanger.dto';
 import { EntityRepository, Repository } from 'typeorm';
 import { Hanger } from './hanger.entity';
 
