@@ -69,8 +69,8 @@ export class PostController {
 
   @UseGuards(AuthGuard('jwt'))
   @Post('/hanger')
-  public async postHanger(@Body() postHangerRequestDto: postHangerRequestDto) {
-    await this.postService.postHanger(postHangerRequestDto);
+  public async postHanger(@Body() post_id: number, @Req() req: Request) {
+    await this.postService.postHanger(post_id, req.user as User);
     return { status: 201, message: 'succes' };
   }
 
