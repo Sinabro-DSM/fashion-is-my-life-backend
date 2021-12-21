@@ -7,6 +7,7 @@ import { ClosetModule } from './closet/closet.module';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { CommentModule } from './comment/comment.module';
+import { HangerModule } from './hanger/hanger.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { CommentModule } from './comment/comment.module';
     UserModule,
     AuthModule,
     CommentModule,
+    HangerModule,
   ],
   controllers: [AppController],
   providers: [AppService],
