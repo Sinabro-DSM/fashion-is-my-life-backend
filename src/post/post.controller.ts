@@ -65,25 +65,6 @@ export class PostController {
     return await this.postService.search(searchWord);
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Post('/hanger')
-  public async postHanger(@Body() post_id: number, @Req() req: Request) {
-    await this.postService.postHanger(post_id, req.user as User);
-    return { status: 201, message: 'succes' };
-  }
-
-  @UseGuards(AuthGuard('jwt'))
-  @Delete('/hanger')
-  public async deleteHanger(post_id: number, @Req() req: Request) {
-    await this.postService.deleteHanger(post_id, req.user as User);
-    return { status: 200, message: 'succes' };
-  }
-
-  @Get('/hanger/:post_id')
-  public async getHanger(@Param('post_id') post_id: number) {
-    return await this.postService.getHanger(post_id);
-  }
-
   @Get('/closet/:post_id')
   public async getClosetInfo(@Param('post_id') post_id: number) {
     return await this.postService.getClosetInfo(post_id);
