@@ -83,12 +83,12 @@ export class PostController {
     return { status: 200, message: 'succes' };
   }
 
-  @Get('/hanger/:postId')
-  public async getHanger(@Body() post_id: number) {
+  @Get('/hanger/:post_id')
+  public async getHanger(@Param() post_id: number) {
     return await this.postService.getHanger(post_id);
   }
 
-  @Get('/closet/:postId')
+  @Get('/closet/:post_id')
   public async getClosetInfo(@Param('post_id') post_id: number) {
     return await this.postService.getClosetInfo(post_id);
   }
