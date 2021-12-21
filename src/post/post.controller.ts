@@ -17,9 +17,7 @@ import { Request } from 'express';
 import { PostMulterOptions } from 'src/config/multer';
 import { MulterFileInterface } from 'src/config/multer.interface';
 import { User } from 'src/shared/entity/user/user.entity';
-import { deleteHangerRequestDto } from './dto/delete-hanger.dto';
 import { getFeedTooColorDto } from './dto/getFeedTooColor.dto';
-import { postHangerRequestDto } from './dto/post-hanger.dto';
 import { postRequestDto } from './dto/post-req.dto';
 import { PostService } from './post.service';
 
