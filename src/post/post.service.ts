@@ -11,9 +11,7 @@ import { Post } from 'src/shared/entity/post/post.entity';
 import { PostRepository } from 'src/shared/entity/post/post.repository';
 import { User } from 'src/shared/entity/user/user.entity';
 import { notFoundPostIdException } from 'src/shared/exception/exception.index';
-import { deleteHangerRequestDto } from './dto/delete-hanger.dto';
 import { getFeedTooColorDto } from './dto/getFeedTooColor.dto';
-import { postHangerRequestDto } from './dto/post-hanger.dto';
 import { postRequestDto } from './dto/post-req.dto';
 
 @Injectable()
