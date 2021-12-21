@@ -80,9 +80,8 @@ export class PostService {
     return hangerCnt.length;
   }
 
-  public async postHanger(postHangerRequestDto: postHangerRequestDto) {
-    const user_id = postHangerRequestDto.user_id;
-    const post_id = postHangerRequestDto.post_id;
+  public async postHanger(post_id: number, user: User) {
+    const user_id = user.user_id;
     return await this.hangerRepository.postHanger(user_id, post_id);
   }
 
