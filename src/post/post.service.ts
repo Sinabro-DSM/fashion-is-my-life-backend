@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { MulterFileInterface } from 'src/config/multer.interface';
-import { Hanger } from 'src/shared/entity/hanger/hanger.entity';
-import { HangerRepository } from 'src/shared/entity/hanger/hanger.repository';
 import { Hashtag } from 'src/shared/entity/hashtag/hashtag.entity';
 import { HashtagRepository } from 'src/shared/entity/hashtag/hashtag.repository';
 import { Picture } from 'src/shared/entity/picture/picture.entity';
@@ -23,8 +21,6 @@ export class PostService {
     private readonly pictureRepository: PictureRepository,
     @InjectRepository(Hashtag)
     private readonly hashtagRepository: HashtagRepository,
-    @InjectRepository(Hanger)
-    private readonly hangerRepository: HangerRepository,
   ) {}
 
   public async createPost(dto: postRequestDto, user: User) {
@@ -70,22 +66,6 @@ export class PostService {
 
   public async search(searchWord: string) {
     return await this.postRepository.search(searchWord);
-  }
-
-  public async getHanger(post_id: number) {
-    const hangerCnt = await this.hangerRepository.getHanger(post_id);
-
-    return hangerCnt.length;
-  }
-
-  public async postHanger(post_id: number, user: User) {
-    const user_id = user.user_id;
-    return await this.hangerRepository.postHanger(user_id, post_id);
-  }
-
-  public async deleteHanger(post_id: number, user: User) {
-    const user_id = user.user_id;
-    return await this.hangerRepository.deleteHanger(user_id, post_id);
   }
 
   public async getPost(post_id: number) {
