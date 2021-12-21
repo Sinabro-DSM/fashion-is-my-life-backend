@@ -76,15 +76,13 @@ export class PostController {
 
   @UseGuards(AuthGuard('jwt'))
   @Delete('/hanger')
-  public async deleteHanger(
-    @Body() deleteHangerRequestDto: deleteHangerRequestDto,
-  ) {
-    await this.postService.deleteHanger(deleteHangerRequestDto);
+  public async deleteHanger(post_id: number, @Req() req: Request) {
+    await this.postService.deleteHanger(post_id, req.user as User);
     return { status: 200, message: 'succes' };
   }
 
   @Get('/hanger/:post_id')
-  public async getHanger(@Param() post_id: number) {
+  public async getHanger(@Param('post_id') post_id: number) {
     return await this.postService.getHanger(post_id);
   }
 
