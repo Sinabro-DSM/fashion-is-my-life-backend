@@ -5,7 +5,7 @@ export class postRequestDto {
   shoesInfo?: string;
   content?: string;
   tags?: string[];
-  r: number;
-  g: number;
-  b: number;
+  r?: number;
+  g?: number;
+  b?: number;
 }
