@@ -31,7 +31,7 @@ export class CommentController {
   }
 
   @UseGuards(AuthGuard('jwt'))
-  @Delete(':commentId')
+  @Delete('/:comment_id')
   public async deleteComment(@Param('comment_id') comment_id: number) {
     await this.commentService.deleteComment(comment_id);
     return { status: 200, message: 'success' };
