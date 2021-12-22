@@ -26,7 +26,7 @@ export class HangerController {
 
   @UseGuards(AuthGuard('jwt'))
   @Delete()
-  public async deleteHanger(post_id: number, @Req() req: Request) {
+  public async deleteHanger(@Body() post_id: number, @Req() req: Request) {
     await this.hangerService.deleteHanger(post_id, req.user as User);
     return { status: 200, message: 'succes' };
   }
