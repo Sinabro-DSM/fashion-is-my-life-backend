@@ -149,9 +149,9 @@ export class PostRepository extends Repository<Post> {
 
   async getClosetInfo(post_id: number) {
     return this.createQueryBuilder('post')
-      .select('post.top_info', 'top_info')
-      .addSelect('post.bottoms_info', 'bottoms_info')
-      .addSelect('post.shoes_info', 'shoes_info')
+      .select('post.top_info')
+      .addSelect('post.bottoms_info')
+      .addSelect('post.shoes_info')
       .where('post.post_id = :post_id', { post_id: post_id })
       .getOne();
   }
