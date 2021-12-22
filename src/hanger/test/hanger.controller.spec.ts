@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { HangerController } from './hanger.controller';
+import { HangerController } from '../hanger.controller';
 
 describe('HangerController', () => {
   let controller: HangerController;
