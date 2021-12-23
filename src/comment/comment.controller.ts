@@ -5,10 +5,13 @@ import {
   Get,
   Param,
   Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { CommentService } from './comment.service';
+import { Request } from 'express';
+import { User } from 'src/shared/entity/user/user.entity';
 
 @Controller('comment')
 export class CommentController {
@@ -25,8 +28,9 @@ export class CommentController {
   public async createComment(
     @Param('post_id') post_id: number,
     @Body() comment: string,
+    @Req() req: Request,
   ) {
-    await this.commentService.createComment(post_id, comment);
+    await this.commentService.createComment(req.user as User, post_id, comment);
     return { status: 201, message: 'success' };
   }
 
