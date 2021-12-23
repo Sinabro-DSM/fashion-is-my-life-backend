@@ -8,7 +8,7 @@ export class ClosetController {
   constructor(private readonly closetService: ClosetService) {}
 
   @UseGuards(AuthGuard('jwt'))
-  @Get('/:userId')
+  @Get('/:user_id')
   public async closet(
     @Param('user_id') user_id: number,
   ): Promise<closetResponseData> {
