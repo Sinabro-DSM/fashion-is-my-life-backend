@@ -12,15 +12,15 @@ export class PostRepository extends Repository<Post> {
       .addSelect('picture.picture_path', 'picture_path')
       .addSelect('hashtag.name', 'name')
       .addSelect('hanger.user_id', 'user_id')
-      .addSelect('post.r', 'r')
-      .addSelect('post.g', 'g')
-      .addSelect('post.b', 'b')
-      .addSelect('post.createdAt', 'createdAt')
+      .addSelect('post.r')
+      .addSelect('post.g')
+      .addSelect('post.b')
+      .addSelect('post.createdAt')
       .innerJoin('post.user_id', 'user')
       .innerJoin('post.hashtag', 'hashtag')
       .innerJoin('post.hanger', 'hanger')
       .innerJoin('post.picture', 'picture')
-      .where('hanger.user_id = :user_id', { user_id: user_id })
+      .where('hanger.user_id = :user_id', { user_id })
       .getMany() as closetResponseData;
   }
 
