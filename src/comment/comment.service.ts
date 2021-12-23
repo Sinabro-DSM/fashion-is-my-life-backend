@@ -3,6 +3,10 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Comment } from 'src/shared/entity/comment/comment.entity';
 import { CommentRepository } from 'src/shared/entity/comment/comment.repository';
 import { User } from 'src/shared/entity/user/user.entity';
+import {
+  notFoundCommentException,
+  notMatchUserAuthorizedException,
+} from 'src/shared/exception/exception.index';
 
 @Injectable()
 export class CommentService {
@@ -23,7 +27,12 @@ export class CommentService {
     );
   }
 
-  public async deleteComment(comment_id: number) {
+  public async deleteComment(user: User, comment_id: number) {
+    if (await this.commentRepository.checkAuthority(user.user_id)) {
+      throw notMatchUserAuthorizedException;
+    } else if (await this.commentRepository.checkExistComment(comment_id)) {
+      throw notFoundCommentException;
+    }
     return await this.commentRepository.deleteComment(comment_id);
   }
 }
