@@ -79,7 +79,7 @@ export class PostRepository extends Repository<Post> {
       .getMany();
   }
 
-  async getAllpost() {
+  async getPostList() {
     return this.createQueryBuilder('post')
       .select('post.title', 'title')
       .addSelect('picture.picture_path', 'picture_path')
