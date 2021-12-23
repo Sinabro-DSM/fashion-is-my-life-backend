@@ -70,9 +70,9 @@ export class PostController {
     return await this.postService.getClosetInfo(post_id);
   }
 
-  @Get('/postall')
+  @Get('/all')
   public async getPostAll() {
-    return await this.postService.postAll();
+    return await this.postService.getPostList();
   }
 
   @Get('/like')
