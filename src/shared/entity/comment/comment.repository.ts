@@ -5,19 +5,19 @@ import { Comment } from './comment.entity';
 export class CommentRepository extends Repository<Comment> {
   async getComment(post_id: number) {
     return this.createQueryBuilder('comment')
-      .select('user.user_id', 'user_id')
-      .addSelect('user.profile_path', 'profile_path')
-      .addSelect('comment.comment', 'comment')
+      .select('user.user_id')
+      .addSelect('user.profile_path')
+      .addSelect('comment.comment')
       .innerJoin('comment.user_id', 'user')
       .where('post_id = :post_id', { post_id: post_id })
       .getMany();
   }
 
-  async createComment(post_id: number, comment: string) {
+  async createComment(user_id: number, post_id: number, comment: string) {
     let newComment: Comment;
 
-    //토큰나오면 user_id 뽑아와서 넣어주기
     newComment = this.create({
+      user_id: user_id,
       post_id: post_id,
       comment: comment,
     });
@@ -29,7 +29,7 @@ export class CommentRepository extends Repository<Comment> {
     return this.createQueryBuilder('comment')
       .delete()
       .from(Comment)
-      .where('comment.comment_id = :comment_id', { comment_id: comment_id })
+      .where('comment.comment_id = :comment_id', { comment_id })
       .execute();
   }
 }
