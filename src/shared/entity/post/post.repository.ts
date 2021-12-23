@@ -39,7 +39,7 @@ export class PostRepository extends Repository<Post> {
   async checkExistPost(post_id: number): Promise<boolean> {
     const post = await this.createQueryBuilder('post')
       .select('post.post_id')
-      .where('post.post_id = :post_id', { post_id: post_id })
+      .where('post.post_id = :post_id', { post_id })
       .getOne();
     if (post) {
       return true;
