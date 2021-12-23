@@ -1,9 +1,18 @@
-import { Entity, JoinColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import {
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  PrimaryColumn,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { Post } from '../post/post.entity';
 import { User } from '../user/user.entity';
 
 @Entity('hanger')
 export class Hanger {
+  @PrimaryGeneratedColumn()
+  hanger_id: number;
+
   @PrimaryColumn()
   user_id: number;
 
