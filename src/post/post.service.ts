@@ -76,8 +76,8 @@ export class PostService {
     return await this.postRepository.getClosetInfo(post_id);
   }
 
-  public async postAll() {
-    return await this.postRepository.getAllpost();
+  public async getPostList() {
+    return await this.postRepository.getPostList();
   }
 
   public async postRecommendation() {
