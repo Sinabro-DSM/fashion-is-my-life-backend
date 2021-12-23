@@ -18,14 +18,14 @@ export class UserRepository extends Repository<User> {
     return this.createQueryBuilder()
       .update(User)
       .set({ nickname: nickname, profile_path: profile_url })
-      .where('user.user_id = :user_id', { user_id: user_id })
+      .where('user.user_id = :user_id', { user_id })
       .execute();
   }
 
   async getUserInfo(user_id: number) {
     return await this.createQueryBuilder('user')
-      .select('user.email', 'email')
-      .addSelect('user.nickname', 'nickname')
+      .select('user.email')
+      .addSelect('user.nickname')
       .innerJoinAndSelect('user.post', 'post')
       .where('user.user_id = :user_id', { user_id: user_id })
       .getOne();
@@ -33,7 +33,7 @@ export class UserRepository extends Repository<User> {
 
   async checkExistUser(user_id: number): Promise<boolean> {
     const user = await this.createQueryBuilder('user')
-      .select('user.user_id', 'user_id')
+      .select('user.user_id')
       .where('user.user_id = :user_id', { user_id })
       .getOne();
     if (user) {
