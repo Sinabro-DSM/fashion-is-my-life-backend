@@ -2,6 +2,7 @@ import {
   BadRequestException,
   NotFoundException,
   ConflictException,
+  UnauthorizedException,
 } from '@nestjs/common';
 
 export const badRequestException = new BadRequestException();
@@ -26,4 +27,12 @@ export const ExistNicknameException = new ConflictException(
 
 export const notFoundPostIdException = new NotFoundException(
   'Not Found PostId',
+);
+
+export const notMatchUserAuthorizedException = new UnauthorizedException(
+  'Not Match User Authorized',
+);
+
+export const notFoundCommentException = new NotFoundException(
+  'Not Found Comment',
 );
