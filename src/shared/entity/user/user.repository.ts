@@ -27,7 +27,18 @@ export class UserRepository extends Repository<User> {
       .select('user.email', 'email')
       .addSelect('user.nickname', 'nickname')
       .innerJoinAndSelect('user.post', 'post')
-      .where("user.user_id = :user_id", { user_id: user_id })
+      .where('user.user_id = :user_id', { user_id: user_id })
       .getOne();
+  }
+
+  async checkExistUser(user_id: number): Promise<boolean> {
+    const user = await this.createQueryBuilder('user')
+      .select('user.user_id', 'user_id')
+      .where('user.user_id = :user_id', { user_id })
+      .getOne();
+    if (user) {
+      return true;
+    }
+    return false;
   }
 }
