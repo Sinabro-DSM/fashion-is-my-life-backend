@@ -90,7 +90,7 @@ export class PostRepository extends Repository<Post> {
       .addSelect('post.b', 'b')
       .addSelect('hashtag.name', 'name')
       .addSelect('post.createdAt', 'createdAt')
-      .innerJoin('post.hashtage', 'hashtag')
+      .innerJoin('post.hashtag', 'hashtag')
       .innerJoin('post.picture', 'picture')
       .innerJoin('post.hanger', 'hanger')
       .getMany();
