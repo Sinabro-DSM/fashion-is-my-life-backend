@@ -9,7 +9,7 @@ export class CommentRepository extends Repository<Comment> {
       .addSelect('user.profile_path')
       .addSelect('comment.comment')
       .innerJoin('comment.user_id', 'user')
-      .where('post_id = :post_id', { post_id: post_id })
+      .where('post_id = :post_id', { post_id })
       .getMany();
   }
 
