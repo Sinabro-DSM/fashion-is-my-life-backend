@@ -3,7 +3,7 @@ import { Comment } from './comment.entity';
 
 @EntityRepository(Comment)
 export class CommentRepository extends Repository<Comment> {
-  async getComment(post_id: number) {
+  async getComments(post_id: number) {
     return this.createQueryBuilder('comment')
       .select('user.user_id')
       .addSelect('user.profile_path')
