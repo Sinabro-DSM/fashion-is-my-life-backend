@@ -18,9 +18,8 @@ export class CommentController {
   constructor(private readonly commentService: CommentService) {}
 
   @Get()
-  public async getComment(@Param('post_id') post_id: number) {
-    await this.commentService.getComment(post_id);
-    return { status: 200, message: 'success' };
+  public async getComments(@Param('post_id') post_id: number) {
+    return await this.commentService.getComments(post_id);
   }
 
   @UseGuards(AuthGuard('jwt'))
