@@ -60,7 +60,7 @@ export class PostController {
     return await this.postService.getFeedTooColor(getFeedTooColorDto);
   }
 
-  @Get()
+  @Get('search')
   public async search(@Query() searchWord: string) {
     return await this.postService.search(searchWord);
   }
