@@ -18,7 +18,7 @@ export class Hashtag {
   @Column({ name: 'post_id' })
   post_id: number;
 
-  @ManyToOne(() => Post, (post) => post.hashtag, {
+  @ManyToOne(() => Post, (post) => post.hashTags, {
     onUpdate: 'CASCADE',
     onDelete: 'CASCADE',
   })
