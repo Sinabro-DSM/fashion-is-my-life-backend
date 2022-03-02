@@ -15,10 +15,10 @@ export class PostRepository extends Repository<Post> {
       .addSelect('post.r')
       .addSelect('post.g')
       .addSelect('post.b')
-      .addSelect('post.createdAt')
+      .addSelect('post.created_at')
       .innerJoin('post.user_id', 'user')
-      .innerJoin('post.hashtag', 'hashtag')
-      .innerJoin('post.hanger', 'hanger')
+      .innerJoin('post.hashtags', 'hashtag')
+      .innerJoin('post.hangers', 'hanger')
       .innerJoin('post.picture', 'picture')
       .where('hanger.user_id = :user_id', { user_id })
       .getMany() as closetResponseData;
@@ -54,10 +54,10 @@ export class PostRepository extends Repository<Post> {
       .addSelect('hanger.post_id')
       .addSelect('post.content')
       .addSelect('hashtag.name')
-      .addSelect('post.createdAt')
+      .addSelect('post.created_at')
       .innerJoin('post.picture', 'picture')
-      .innerJoin('post.hanger', 'hanger')
-      .innerJoin('post.hashtag', 'hashtag')
+      .innerJoin('post.hangers', 'hanger')
+      .innerJoin('post.hashtags', 'hashtag')
       .orderBy('RAND()')
       .getMany();
   }
@@ -70,10 +70,10 @@ export class PostRepository extends Repository<Post> {
       .addSelect('hanger.post_id')
       .addSelect('post.content')
       .addSelect('hashtag.name')
-      .addSelect('post.createdAt')
+      .addSelect('post.created_at')
       .innerJoin('post.picture', 'picture')
-      .innerJoin('post.hanger', 'hanger')
-      .innerJoin('post.hashtag', 'hashtag')
+      .innerJoin('post.hangers', 'hanger')
+      .innerJoin('post.hashtags', 'hashtag')
       .select('COUNT(*) AS hangerCount')
       .limit(15)
       .getMany();
@@ -83,16 +83,16 @@ export class PostRepository extends Repository<Post> {
     return this.createQueryBuilder('post')
       .select('post.title')
       .addSelect('picture.picture_path')
-      .addSelect('hanger.post_id')
+      .addSelect('hangers.post_id')
       .addSelect('post.content')
       .addSelect('post.r')
       .addSelect('post.g')
       .addSelect('post.b')
       .addSelect('hashtag.name')
-      .addSelect('post.createdAt')
-      .innerJoin('post.hashtag', 'hashtag')
+      .addSelect('post.created_at')
+      .innerJoin('post.hashtags', 'hashtag')
       .innerJoin('post.picture', 'picture')
-      .innerJoin('post.hanger', 'hanger')
+      .innerJoin('post.hangers', 'hanger')
       .getMany();
   }
 
@@ -104,11 +104,11 @@ export class PostRepository extends Repository<Post> {
       .addSelect('hanger.post_id')
       .addSelect('post.content')
       .addSelect('hashtag.name')
-      .addSelect('post.createdAt')
+      .addSelect('post.created_at')
       .innerJoin('post.picture', 'picture')
-      .innerJoin('post.hanger', 'hanger')
-      .innerJoin('post.hashtag', 'hashtag')
-      .orderBy('post.createdAt', 'DESC')
+      .innerJoin('post.hangers', 'hanger')
+      .innerJoin('post.hashtags', 'hashtag')
+      .orderBy('post.created_at', 'DESC')
       .limit(15)
       .getMany();
   }
@@ -120,11 +120,11 @@ export class PostRepository extends Repository<Post> {
       .addSelect('hanger.post_id')
       .addSelect('post.content')
       .addSelect('hashtag.name')
-      .addSelect('post.createdAt')
-      .innerJoin('post.hashtag', 'hashtag')
+      .addSelect('post.created_at')
+      .innerJoin('post.hashtags', 'hashtag')
       .innerJoin('post.picture', 'picture')
-      .innerJoin('post.hanger', 'hanger')
-      .innerJoin('post.hashtag', 'hashtag')
+      .innerJoin('post.hangers', 'hanger')
+      .innerJoin('post.hashtags', 'hashtag')
       .where('hashtag.name like %:name% OR user.nickname like %:nickname%', {
         name: searchWord,
         nickname: searchWord,
@@ -139,10 +139,10 @@ export class PostRepository extends Repository<Post> {
       .addSelect('hanger.post_id')
       .addSelect('post.content')
       .addSelect('hashtag.name')
-      .addSelect('post.createdAt')
+      .addSelect('post.created_at')
       .innerJoin('post.picture', 'picture')
-      .innerJoin('post.hanger', 'hanger')
-      .innerJoin('post.hashtag', 'hashtag')
+      .innerJoin('post.hangers', 'hanger')
+      .innerJoin('post.hashtags', 'hashtag')
       .where('post.post_id = :post_id', { post_id: post_id })
       .getOne();
   }
