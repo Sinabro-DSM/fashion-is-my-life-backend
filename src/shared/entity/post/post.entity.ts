@@ -34,7 +34,7 @@ export class Post {
   shoes_info: string;
 
   @CreateDateColumn()
-  createdAt: Date;
+  created_at: Date;
 
   @Column({ name: 'user_id' })
   user_id: number;
@@ -49,7 +49,7 @@ export class Post {
   b: number;
 
   @OneToMany(() => Hanger, (hanger) => hanger.post)
-  hanger!: Hanger;
+  hangers!: Hanger;
 
   @ManyToOne(() => User, (user) => user.post, {
     onUpdate: 'CASCADE',
@@ -59,10 +59,10 @@ export class Post {
   user: User;
 
   @OneToMany(() => Hashtag, (hashtag) => hashtag.post)
-  hashtag: Hashtag[];
+  hashTags: Hashtag[];
 
   @OneToMany(() => Comment, (comment) => comment.post)
-  commnet: Comment[];
+  commnets: Comment[];
 
   @OneToMany(() => Picture, (picture) => picture.post)
   picture: Picture[];
