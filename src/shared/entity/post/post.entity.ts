@@ -65,5 +65,5 @@ export class Post {
   commnets: Comment[];
 
   @OneToMany(() => Picture, (picture) => picture.post)
-  picture: Picture[];
+  pictures: Picture[];
 }
