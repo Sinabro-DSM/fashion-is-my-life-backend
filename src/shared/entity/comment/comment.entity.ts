@@ -16,10 +16,10 @@ export class Comment {
   @Column({ length: 200, nullable: true })
   comment: string;
 
-  @Column({ name: 'user_id' })
+  @Column()
   user_id: number;
 
-  @Column({ name: 'post_id' })
+  @Column()
   post_id: number;
 
   @ManyToOne(() => User, (user) => user.commnet, {
