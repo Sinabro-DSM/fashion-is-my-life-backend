@@ -138,8 +138,10 @@ export class PostRepository extends Repository<Post> {
       .addSelect('post.content')
       .addSelect('post.created_at')
       .addSelect('hashtag.name')
-      .leftJoinAndSelect('post.pictures', 'picture')
-      .leftJoinAndSelect('post.hangers', 'hanger')
+      .addSelect('hanger.post_id')
+      .addSelect('picture.picture_path')
+      .leftJoin('post.hangers', 'hanger')
+      .leftJoin('post.pictures', 'picture')
       .leftJoin('post.hashTags', 'hashtag')
       .where('post.post_id = :post_id', { post_id })
       .getOne();
