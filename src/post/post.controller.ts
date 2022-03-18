@@ -42,7 +42,7 @@ export class PostController {
   @UseInterceptors(FileInterceptor('file', PostMulterOptions))
   public async createPicture(
     @UploadedFile() file: MulterFileInterface,
-    @Param('post_id') post_id: number,
+    @Param('post_id', ParseIntPipe) post_id: number,
   ) {
     await this.postService.createPicture(file, post_id);
     return { status: 201, message: 'success' };
