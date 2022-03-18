@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Req,
   UseGuards,
@@ -32,7 +33,7 @@ export class HangerController {
   }
 
   @Get('/:post_id')
-  public async getHanger(@Param('post_id') post_id: number) {
+  public async getHanger(@Param('post_id', ParseIntPipe) post_id: number) {
     return await this.hangerService.getHanger(post_id);
   }
 }
