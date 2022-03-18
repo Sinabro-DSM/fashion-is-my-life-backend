@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Req,
   UseGuards,
@@ -25,7 +26,7 @@ export class CommentController {
   @UseGuards(AuthGuard('jwt'))
   @Post()
   public async createComment(
-    @Param('post_id') post_id: number,
+    @Param('post_id', ParseIntPipe) post_id: number,
     @Body() comment: string,
     @Req() req: Request,
   ) {
@@ -36,7 +37,7 @@ export class CommentController {
   @UseGuards(AuthGuard('jwt'))
   @Delete('/:comment_id')
   public async deleteComment(
-    @Param('comment_id') comment_id: number,
+    @Param('comment_id', ParseIntPipe) comment_id: number,
     @Req() req: Request,
   ) {
     await this.commentService.deleteComment(req.user as User, comment_id);
